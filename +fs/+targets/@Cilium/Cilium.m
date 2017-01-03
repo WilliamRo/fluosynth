@@ -6,10 +6,6 @@ classdef (Sealed) Cilium < fs.targets.Target
     properties (Constant)
         LengthBoundsUm = [1, 9]        % um
     end
-    %% Public Properties
-    properties (Access = public)
-        %
-    end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
         InitPoints
@@ -29,21 +25,39 @@ classdef (Sealed) Cilium < fs.targets.Target
         plot(this, fid)
         align(this)
     end
-    %% Static Methods
+    %% Public Static Methods
     methods (Static)
         % Property Methods
         bounds = LengthBoundsPixel
         %
         targets = rand(number)
+        target = getTemplate(index)
     end
-    %% Property Methods
-    methods (Access = public)
-        %
+    %% Private Static Methods
+    methods (Static, Access = public)
+        index = roll
     end
     %% Private Methods
     methods (Access = private)
         setParams(this, ctrlpoints, varargin)
         interpolate(this)
+    end
+    %% Templates
+    properties (Constant)
+        Templates = {[ 0,  0.0,  0.0; ...  % almost straight
+                       5,  0.8,  0.3; ...
+                      10,  0.8,  0.0; ...
+                      15,  0.0,  0.0], 1; ...
+                     [ 0,  0.0,  0.0; ...  % boomerang
+                       2,  1.5,  0.1; ...
+                      10,  5.6,  0.2; ...
+                      18,  1.5,  0.0; ...
+                      20,  0.0,  0.0], 1; ...
+                     [ 0,  0.0,  0.0; ...  % curve head
+                       5,  0.0,  0.2; ...
+                      16,  0.0,  0.5; ...
+                      18,  0.0,  0.3; ...
+                      20,  3.0,  0.5], 1}
     end
     
 end
