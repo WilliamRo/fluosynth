@@ -23,7 +23,7 @@ center = mean([bd_max; bd_min]);
 xlim([center(1) - rad, center(1) + rad])
 ylim([center(2) - rad, center(2) + rad])
 zlim([center(3) - rad, center(3) + rad])
-xlabel('x axis'), ylabel('y axis'), zlabel('z axis'), 
+xlabel('X Axis'), ylabel('Y Axis'), zlabel('Z Axis'), 
 
 end
 

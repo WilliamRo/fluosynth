@@ -19,7 +19,8 @@ classdef (Abstract) Target < handle
         end
         %
         plot(this, fid)
-        ofst = align(this)
+        varargout = rotate(this, matrix)
+        varargout = align(this)
     end
     %% (Abstract) Static Methods
     methods (Abstract, Static)
