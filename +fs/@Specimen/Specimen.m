@@ -5,15 +5,11 @@ classdef Specimen < handle
     %   >> ans = 
     %                1000    1000    500
     %
-    %% Constants
-    properties (GetAccess = public)
-        %
-    end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
         Shape = [1000, 1000, 500]
         ChannelNum = 2
-        Distribution = {}               % fluorescence distribution
+        Channels
     end
     %% Public Properties
     properties (Access = public)
@@ -27,10 +23,13 @@ classdef Specimen < handle
             this.initialize()
         end
         % Subscript index
-        function volumn = subsref(this, S)
-            assert(length(S.subs) == 1)
-            volumn = this.Distribution{S.subs{1}};
+        function attr = subsref(this, S)
+            if S.type == '.', attr = this.(S.subs); 
+            else attr = this.Channels(S.subs{1}); end
         end
+        %
+        plot(this)
+        setTarget(this, target)
     end
     %% Private Methods
     methods (Access = private) 

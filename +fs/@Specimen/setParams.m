@@ -13,8 +13,6 @@ for i = 1 : 2 : length(varargin)
             this.Shape = value;
         case {'channelnum', 'channel'}
             this.ChannelNum = value;
-        case {'lengthperpixel', 'lpp'}
-            this.LengthPerPixel = value;
     end % switch
 end
 
