@@ -2,6 +2,10 @@ classdef (Abstract) Target < handle
     %TARGET ...
     %   ...
     
+    %% Public Properties
+    properties (Access = public)
+        Concentration
+    end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = protected)
         Body
@@ -13,6 +17,10 @@ classdef (Abstract) Target < handle
         varargout = align(this)
         % Property Methods
         p = BasePoint(this)
+    end
+    %% Private Methods
+    methods (Access = protected)
+        initConcentration(this)
     end
     %% (Abstract) Static Methods
     methods (Abstract, Static)

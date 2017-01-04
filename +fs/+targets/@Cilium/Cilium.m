@@ -19,7 +19,8 @@ classdef (Sealed) Cilium < fs.targets.Target
             if nargin < 1, initpoints = []; end
             this.setParams(initpoints, varargin{:});
             %
-            this.interpolate
+            this.interpolate()
+            this.initConcentration()
         end
         %
         plot(this, fid)

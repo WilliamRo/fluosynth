@@ -1,9 +1,9 @@
 classdef Specimen < handle
     %SPECIMEN ...
     %   Example:
-    %   >> spe = FS.Specimen(); size(spe(2))
+    %   >> spe = ...
     %   >> ans = 
-    %                1000    1000    500
+    %                ...
     %
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
