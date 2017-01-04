@@ -4,9 +4,8 @@ function r = truncated_randn(range, mid)
 
 % check input 
 narginchk(1, 2)
-assert(length(range(:)) == 2, 'range is illegal')
+assert(length(range(:)) == 2, '!! Range is illegal')
 len = range(2) - range(1);
-assert(len > 0, 'range is illegal')
 if nargin < 2, mid = mean(range); end
 
 % rand

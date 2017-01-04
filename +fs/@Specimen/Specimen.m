@@ -2,39 +2,28 @@ classdef Specimen < handle
     %SPECIMEN ...
     %   Example:
     %   >> spe = ...
-    %   >> ans = 
-    %                ...
     %
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
-        Shape = [1000, 1000, 500]
-        ChannelNum = 2
+        Shape
         Channels
-    end
-    %% Public Properties
-    properties (Access = public)
-        %
     end
     %% Public Methods
     methods (Access = public)
         % Constructor
-        function this = Specimen(varargin)
-            this.setParams(varargin{:})
-            this.initialize()
+        function this = Specimen(shape, channels)
+            % check inputs
+            if nargin < 2, channels = 1; end
+            if nargin < 1, shape = [500, 500, 500]; end
+            % initialize
+            this.Shape = shape;
+            for i = 1 : channels
+                this.Channels(i).targets = [];
+            end
         end
-        % Subscript index
-        function attr = subsref(this, S)
-            if S.type == '.', attr = this.(S.subs); 
-            else attr = this.Channels(S.subs{1}); end
-        end
-        %
-        plot(this)
-        setTarget(this, target)
-    end
-    %% Private Methods
-    methods (Access = private) 
-        setParams(this, varargin)
-        initialize(this)
+        plot(this, channel, fid)
+        addTarget(this, target, positoin, channel)
+        addRand(this, num)
     end
     
 end

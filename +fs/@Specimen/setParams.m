@@ -11,8 +11,6 @@ for i = 1 : 2 : length(varargin)
     switch (lower(varargin{i}))
         case {'shape'}
             this.Shape = value;
-        case {'channelnum', 'channel'}
-            this.ChannelNum = value;
     end % switch
 end
 
