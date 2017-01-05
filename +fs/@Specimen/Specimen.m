@@ -17,7 +17,7 @@ classdef Specimen < handle
         function this = Specimen(shape, channels)
             % check inputs
             if nargin < 2, channels = 1; end
-            if nargin < 1, shape = [500, 500, 500]; end
+            if nargin < 1, shape = [500, 500, 300]; end
             % initialize
             this.Shape = shape;
             for i = 1 : channels
@@ -29,6 +29,8 @@ classdef Specimen < handle
         showEnergy(this, channel)
         addTarget(this, target, positoin, channel)
         addRand(this, num)
+        channelIndexCheck(this, index)
+        flag = inbound(this, coord)
     end
     
 end

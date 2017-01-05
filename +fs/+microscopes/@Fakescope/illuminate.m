@@ -7,9 +7,7 @@ specimen = this.Specimen;
 
 % check input
 if nargin < 3, channel = 1; end
-upperbound = length(specimen.Channels);
-assert(all(and(channel > 0, channel <= upperbound)), ...
-       '!! Input channel is illegal')
+specimen.channelIndexCheck(channel)
 if nargin < 2, zpos = round(specimen.Shape(3) / 2); end
 
 % illuminate

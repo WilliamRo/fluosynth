@@ -7,8 +7,7 @@ narginchk(2, 4)
 assert(isa(target, 'fs.targets.Target'), ...
        '!! The input target is illegal.')
 if nargin < 4, channel = 1; end
-assert(channel <= length(this.Channels), ...
-       '!! Channel index out of bound.')
+this.channelIndexCheck(channel)
 if nargin < 3
     position = rand(1, 3) .* this.Shape;
 end

@@ -12,7 +12,11 @@ classdef  (Abstract) Microscope < handle
     %% (Abstract) Public Methods
     methods (Abstract, Access = public)
         illuminate(this, zpos, channel)
-        image = shoot(this)
+        image = shoot(this, zpos, channel)
+    end
+    %% Private Methods
+    methods (Access = protected)
+        showPlane(this, z)
     end
     
 end
