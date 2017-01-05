@@ -14,6 +14,10 @@ classdef  (Abstract) Microscope < handle
         illuminate(this, zpos, channel)
         image = shoot(this, zpos, channel)
     end
+    %% Static Methods
+    methods (Static, Access = public)
+        image = addRuler(image)
+    end
     %% Private Methods
     methods (Access = protected)
         showPlane(this, z)

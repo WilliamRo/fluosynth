@@ -9,7 +9,7 @@ classdef (Sealed, Abstract) config
         FigureIDs = struct('shoot', 800)
         
         % SpreadParams.size must be ODD!
-        SpreadParams = struct('size', 17, 'sigma', 1.6)
+        SpreadParams = struct('size', 17, 'sigma', 1.2)
     end
     %% Properties
     methods (Static)

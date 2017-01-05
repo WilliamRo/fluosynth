@@ -70,7 +70,7 @@ if verbose
     title('Total Decay')
     % show image
     subplot(4, 2, 3:2:7)
-    imshow(image, [])
+    imshow(fs.microscopes.Microscope.addRuler(image), [])
     title('Image')
     % show specimen
     subplot(4, 2, 4:2:8)
