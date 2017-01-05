@@ -1,7 +1,7 @@
 classdef Specimen < handle
     %SPECIMEN ...
     %   Example:
-    %   >> spe = ...
+    %   >> spe = fs.Specimen([1000, 1000, 500], 3);
     %
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)

@@ -20,7 +20,7 @@ for i = 1 : length(targets)
     points = target.Body + ...
              repmat(ofst, size(target.Body, 1), 1);
     plot3(points(:, 1), points(:, 2), points(:, 3), ...
-          'bo-', 'MarkerSize', 1)
+          'bo', 'MarkerSize', 0.8)
 end
 %
 xlim([0, this.Shape(1)])
