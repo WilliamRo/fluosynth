@@ -26,6 +26,7 @@ classdef Specimen < handle
             end
         end
         plot(this, channel, fid)
+        showEnergy(this, channel)
         addTarget(this, target, positoin, channel)
         addRand(this, num)
     end

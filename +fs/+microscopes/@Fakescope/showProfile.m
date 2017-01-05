@@ -14,6 +14,7 @@ plot(this.AxialProfile)
 xlim([0, length(this.AxialProfile)])
 ylim([0, 1])
 xlabel('Distance')
+ylabel('Illumination Percent')
 title('Axial Profile')
 
 end
