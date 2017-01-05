@@ -6,6 +6,9 @@ classdef Specimen < handle
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
         Shape
+    end
+    %% Public Properties
+    properties (Access = public)
         Channels
     end
     %% Public Methods
@@ -19,6 +22,7 @@ classdef Specimen < handle
             this.Shape = shape;
             for i = 1 : channels
                 this.Channels(i).targets = [];
+                this.Channels(i).energy = zeros(shape(3), 1);
             end
         end
         plot(this, channel, fid)

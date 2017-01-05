@@ -23,6 +23,10 @@ classdef (Abstract) Target < handle
     methods (Access = protected)
         initConcentration(this)
     end
+    %% (Abstract) Constant Properties
+    properties (Abstract, Constant)
+        Interest
+    end
     %% (Abstract) Static Methods
     methods (Abstract, Static)
         targets = rand(number)

@@ -4,6 +4,7 @@ classdef (Sealed) Cilium < fs.targets.Target
     
     %% Constants
     properties (Constant)
+        Interest = true
         LengthBoundsUm = [1, 9]        % um
     end
     %% Readonly Properties
