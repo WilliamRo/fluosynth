@@ -5,7 +5,7 @@ function drawframe(shape, colour, showorigin)
 % check input
 narginchk(1, 3)
 if nargin < 3, showorigin = true; end
-if nargin < 2, colour = ones(1, 3) * 0.6; end
+if nargin < 2 || isempty(colour), colour = ones(1, 3) * 0.6; end
 
 % draw frame
 frame = [0, 0, 0; 1, 0, 0; 1, 1, 0; 0, 1, 0; 0, 0, 0; ...

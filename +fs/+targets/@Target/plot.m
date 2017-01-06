@@ -25,5 +25,11 @@ ylim([center(2) - rad, center(2) + rad])
 zlim([center(3) - rad, center(3) + rad])
 xlabel('X Axis'), ylabel('Y Axis'), zlabel('Z Axis'), 
 
+% draw frame
+if all(min(this.Body) == 0)
+    hold on
+    fs.utils.drawframe(max(this.Body), [], false)
+end
+
 end
 

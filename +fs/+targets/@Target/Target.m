@@ -18,6 +18,7 @@ classdef (Abstract) Target < handle
         setConcentration(this, pct)
         % Property Methods
         p = BasePoint(this)
+        [zl, zh] = Margin(this)
     end
     %% Private Methods
     methods (Access = protected)
