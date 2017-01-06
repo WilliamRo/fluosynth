@@ -23,7 +23,7 @@ box = box / max(box(:)) * peak;
 [h, w] = size(box);
 i = H - 27 + 10;
 j = round(mean([jrange(1), jrange(end)]) - w / 2);
-image(i:i+h-1, j:j+w-1) = image(i:i+h-1, j:j+w-1) + box;
+image(i:i+h-1, j:j+w-1) = min(image(i:i+h-1, j:j+w-1) + box, peak);
 
 end
 
