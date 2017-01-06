@@ -42,6 +42,10 @@ for i = 1 : length(specimen.Channels(channel).targets)
     end % end for j
 end % end for i
 timespan = toc;
+% add ruler
+image = fs.microscopes.Microscope.addRuler(image);
+% adjust image
+image = image / max(image(:));
 
 %% show details
 if verbose
@@ -70,7 +74,7 @@ if verbose
     title('Total Decay')
     % show image
     subplot(4, 2, 3:2:7)
-    imshow(fs.microscopes.Microscope.addRuler(image), [])
+    imshow(image, [])
     title('Image')
     % show specimen
     subplot(4, 2, 4:2:8)

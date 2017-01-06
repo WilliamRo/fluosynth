@@ -10,6 +10,7 @@ classdef (Sealed, Abstract) config
         
         % SpreadParams.size must be ODD!
         SpreadParams = struct('size', 17, 'sigma', 1.2)
+        SynthFolder = 'sdata/'
     end
     %% Properties
     methods (Static)
