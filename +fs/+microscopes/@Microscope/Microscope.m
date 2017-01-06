@@ -17,10 +17,6 @@ classdef  (Abstract) Microscope < handle
         illuminate(this, zpos, channel)
         image = shoot(this, zpos, channel, verbose)
     end
-    %% Static Methods
-    methods (Static, Access = public)
-        image = addRuler(image)
-    end
     %% Private Methods
     methods (Access = protected)
         image = addNoise(this, image)

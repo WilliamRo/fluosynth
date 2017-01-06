@@ -8,6 +8,7 @@ classdef LabBench < handle
     methods (Access = public, Static)
         img = rand(varargin)
         img = synthesize()
+        image = addRuler(image)
         saveImage(zstack, filename, extension)
     end % public static methods
     %% Public Methods
