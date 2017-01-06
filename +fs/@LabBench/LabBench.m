@@ -1,5 +1,5 @@
 classdef LabBench < handle
-    %CREATOR ...
+    %LABBENCH ...
     %   ...
     %%
     properties
@@ -9,7 +9,7 @@ classdef LabBench < handle
         img = rand(varargin)
         img = synthesize()
         image = addRuler(image)
-        saveImage(zstack, filename, extension)
+        saveImage(zstack, filename, extension, ruler)
     end % public static methods
     %% Public Methods
     methods (Access = public)
