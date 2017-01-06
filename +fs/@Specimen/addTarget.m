@@ -8,7 +8,7 @@ assert(isa(target, 'fs.targets.Target'), ...
        '!! The input target is illegal.')
 if nargin < 4, channel = 1; end
 this.channelIndexCheck(channel)
-if nargin < 3
+if nargin < 3 || isempty(position)
     position = rand(1, 3) .* this.Shape;
 end
 

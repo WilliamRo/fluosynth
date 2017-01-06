@@ -1,7 +1,17 @@
 classdef Specimen < handle
-    %SPECIMEN ...
-    %   Example:
+    %SPECIMEN contains multiple channels
+    %   SYNTAX: spe = Specimen(shape, channel_num)
+    %
+    %   EXAMPLE:
     %   >> spe = fs.Specimen([1000, 1000, 500], 3);
+    %   
+    %   MAIN STRUCTURE:
+    %     - spe.Channels(i): 
+    %     |  - targets(j): 
+    %     |  |  - target: instance of class Target
+    %     |  |  - position: [1x3 double]
+    %     |  - energy: [spe.Shape(3)x1 double]
+    %     |  - 
     %
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
@@ -23,12 +33,13 @@ classdef Specimen < handle
             for i = 1 : channels
                 this.Channels(i).targets = [];
                 this.Channels(i).energy = zeros(shape(3), 1);
+                this.Channels(i).backgroud = 0;
             end
         end
         plot(this, channel, fid)
         showEnergy(this, channel)
         addTarget(this, target, positoin, channel)
-        addRand(this, num)
+        addRand(this, num, channel)
         channelIndexCheck(this, index)
         flag = inbound(this, coord)
     end
