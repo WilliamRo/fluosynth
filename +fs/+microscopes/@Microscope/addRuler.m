@@ -11,7 +11,7 @@ height = 10;
 width = round(len / fs.config.LengthPerPixel);
 [H, W] = size(image);
 assert(width < W - margin(1), '!! Bar is too long for image.')
-peak = max(image(:));
+peak = max(image(:));  peak = 1.0;
 irange = (1 : height) + H - margin(2) - 1; 
 jrange = (1 : width) + margin(1);
 image(irange, jrange) = peak;

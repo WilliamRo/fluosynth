@@ -26,6 +26,8 @@ classdef (Abstract) Target < handle
     %% (Abstract) Constant Properties
     properties (Abstract, Constant)
         Interest
+        Color
+        MarkerSize
     end
     %% (Abstract) Static Methods
     methods (Abstract, Static)

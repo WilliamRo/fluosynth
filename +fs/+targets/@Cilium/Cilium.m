@@ -6,6 +6,9 @@ classdef (Sealed) Cilium < fs.targets.Target
     properties (Constant)
         Interest = true
         LengthBoundsUm = [1, 9]        % um
+        % [SHOW]
+        Color = [0, 0.45, 0.1]
+        MarkerSize = 0.8
     end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)

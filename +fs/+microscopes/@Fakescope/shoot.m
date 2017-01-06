@@ -1,6 +1,9 @@
 function image = shoot(this, zpos, channel, verbose)
-%FAKESCOPE:SHOOT ...
-%   ...
+%FAKESCOPE:SHOOT generates a synthetic image at the given z-position
+%   in specimen set to THIS microscope
+%
+%   SYNTAX: image = fakescope.shoot(zpos, channel, verbose)
+%
 
 assert(~isempty(this.Specimen), '!! Specimen not set.')
 specimen = this.Specimen;
@@ -43,10 +46,6 @@ for i = 1 : length(specimen.Channels(channel).targets)
     end % end for j
 end % end for i
 timespan = toc;
-% add ruler
-image = fs.microscopes.Microscope.addRuler(image);
-% adjust image
-image = image / max(image(:));
 
 %% show details
 if verbose
@@ -75,12 +74,12 @@ if verbose
     title('Total Decay')
     % show image
     subplot(4, 2, 3:2:7)
-    imshow(image)
+    imshow(fs.microscopes.Microscope.addRuler(image))
     title('Image')
     % show specimen
     subplot(4, 2, 4:2:8)
     specimen.plot(channel, 0)
-    this.showPlane(zpos)
+    this.showPlane(zpos, exz)
     title('Specimen')
 end
 

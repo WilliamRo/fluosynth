@@ -20,16 +20,21 @@ for i = 1 : length(targets)
     ofst = targets(i).position - target.BasePoint;
     points = target.Body + ...
              repmat(ofst, size(target.Body, 1), 1);
-    plot3(points(:, 1), points(:, 2), points(:, 3), ...
-          'o', 'Color', [0, 0.45, 0.1], 'MarkerSize', 0.8)
+    plot3(points(:, 1), points(:, 2), points(:, 3), 'o-', ...
+          'Color', target.Color, 'MarkerSize', target.MarkerSize)
 end
-%
+
+% draw frame
+fs.utils.drawframe(this.Shape)
+  
+% limit axis
 xlim([0, this.Shape(1)])
 ylim([0, this.Shape(2)])
 zlim([0, this.Shape(3)])
 xlabel('X Axis'), ylabel('Y Axis'), zlabel('Z Axis')
 view(90, 90)
-%
+
+% set title
 title(sprintf('Specimen, channel: %d/%d', ...
               channel, length(this.Channels)))
 

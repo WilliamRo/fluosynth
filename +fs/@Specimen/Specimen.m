@@ -11,7 +11,7 @@ classdef Specimen < handle
     %     |  |  - target: instance of class Target
     %     |  |  - position: [1x3 double]
     %     |  - energy: [spe.Shape(3)x1 double]
-    %     |  - 
+    %     |  - background
     %
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
@@ -42,7 +42,7 @@ classdef Specimen < handle
         %
         channelIndexCheck(this, index)
         flag = inbound(this, coord)
-        %
+        % [SHOW]
         plot(this, channel, fid)
         showEnergy(this, channel)
     end
