@@ -4,7 +4,7 @@ classdef  (Abstract) Microscope < handle
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = protected)
         Specimen = []
-        NoiseParams = struct('gaussian', 0)
+        NoiseParams = struct('gaussian', [])
     end
     %% Public Methods
     methods (Access = public)
@@ -22,7 +22,7 @@ classdef  (Abstract) Microscope < handle
     end
     %% Private Methods
     methods (Access = protected)
-        addNoise(this, image)
+        image = addNoise(this, image)
         % [SHOW]
         showPlane(this, z, zexc)
     end

@@ -46,6 +46,8 @@ for i = 1 : length(specimen.Channels(channel).targets)
     end % end for j
 end % end for i
 timespan = toc;
+% add noise
+image = this.addNoise(image);
 
 %% show details
 if verbose
