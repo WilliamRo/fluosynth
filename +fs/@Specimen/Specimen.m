@@ -3,7 +3,7 @@ classdef Specimen < handle
     %   SYNTAX: spe = Specimen(shape, channel_num)
     %
     %   EXAMPLE:
-    %   >> spe = fs.Specimen([1000, 1000, 500], 3);
+    %   >> spe = fs.Specimen([1000, 1000, 60], 3);
     %   
     %   MAIN STRUCTURE:
     %     - spe.Channels(i): 

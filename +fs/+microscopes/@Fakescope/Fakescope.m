@@ -13,7 +13,7 @@ classdef Fakescope < fs.microscopes.Microscope
             if nargin < 1
                 sigma = fs.config.FakeDecayParams.energy;
                 axpro = fs.microscopes...
-                        .Fakescope.fakeProfile(200, sigma);
+                        .Fakescope.fakeProfile(100, sigma);
             end
             % set parameters
             this.AxialProfile = axpro;

@@ -1,6 +1,7 @@
 function illuminate(this, zpos, channel)
-%FAKESCOPE::ILLUMINATE ...
-%   ...
+%FAKESCOPE::ILLUMINATE illuminates specimen set to THIS microscope
+%   at a specific z-position
+%   SYNTAX: scope.illuminate(zpos, channel)
 
 assert(~isempty(this.Specimen), '!! Specimen not set.')
 specimen = this.Specimen;

@@ -51,8 +51,6 @@ image = this.addNoise(image);
 
 %% show details
 if verbose
-    fprintf('>> Elapsed time for %d/%d points is %.3f secs.\n', ...
-            cnt, cntall, timespan);
     figure(fs.config.FigureIDs.shoot), clf
     % show energy and distance decay curve
     subplot(4, 2, 1), hold on
@@ -77,7 +75,8 @@ if verbose
     % show image
     subplot(4, 2, 3:2:7)
     imshow(fs.microscopes.Microscope.addRuler(image))
-    title('Image')
+    title(sprintf('Image, %.3f secs for %d/%d points', ...
+                  timespan, cnt, cntall))
     % show specimen
     subplot(4, 2, 4:2:8)
     specimen.plot(channel, 0)

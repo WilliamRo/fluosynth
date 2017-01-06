@@ -18,8 +18,7 @@ hold on
 for i = 1 : length(targets)
     target = targets(i).target;
     ofst = targets(i).position - target.BasePoint;
-    points = target.Body + ...
-             repmat(ofst, size(target.Body, 1), 1);
+    points = target.Body + repmat(ofst, size(target.Body, 1), 1);
     plot3(points(:, 1), points(:, 2), points(:, 3), 'o-', ...
           'Color', target.Color, 'MarkerSize', target.MarkerSize)
 end
@@ -28,9 +27,10 @@ end
 fs.utils.drawframe(this.Shape)
   
 % limit axis
-xlim([0, this.Shape(1)])
-ylim([0, this.Shape(2)])
-zlim([0, this.Shape(3)])
+rad = max(this.Shape) / 2;
+xlim([this.Shape(1) / 2 - rad, this.Shape(1) / 2 + rad])
+ylim([this.Shape(2) / 2 - rad, this.Shape(2) / 2 + rad])
+zlim([this.Shape(3) / 2 - rad, this.Shape(3) / 2 + rad])
 xlabel('X Axis'), ylabel('Y Axis'), zlabel('Z Axis')
 view(90, 90)
 
