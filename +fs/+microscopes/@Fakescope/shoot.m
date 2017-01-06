@@ -14,7 +14,8 @@ if nargin < 2 || isempty(zpos)
 
 %% generate image
 tic
-image = zeros(this.Specimen.Shape(1:2));
+image = ones(this.Specimen.Shape(1:2)) * ...
+        specimen.Channels(channel).background;
 % use default spread function
 spread = fs.utils.spread(fs.config.SpreadParams.size, ...
                          fs.config.SpreadParams.sigma);
@@ -74,7 +75,7 @@ if verbose
     title('Total Decay')
     % show image
     subplot(4, 2, 3:2:7)
-    imshow(image, [])
+    imshow(image)
     title('Image')
     % show specimen
     subplot(4, 2, 4:2:8)

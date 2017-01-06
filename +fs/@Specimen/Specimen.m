@@ -33,15 +33,18 @@ classdef Specimen < handle
             for i = 1 : channels
                 this.Channels(i).targets = [];
                 this.Channels(i).energy = zeros(shape(3), 1);
-                this.Channels(i).backgroud = 0;
+                this.Channels(i).background = 0;
             end
         end
-        plot(this, channel, fid)
-        showEnergy(this, channel)
         addTarget(this, target, positoin, channel)
         addRand(this, num, channel)
+        setBackground(this, concentration, channel)
+        %
         channelIndexCheck(this, index)
         flag = inbound(this, coord)
+        %
+        plot(this, channel, fid)
+        showEnergy(this, channel)
     end
     
 end
