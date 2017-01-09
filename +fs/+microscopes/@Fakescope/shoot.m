@@ -5,10 +5,10 @@ function image = shoot(this, zpos, channel, verbose)
 %   SYNTAX: image = fakescope.shoot(zpos, channel, verbose)
 %
 
+%% check specimen and input
 assert(~isempty(this.Specimen), '!! Specimen not set.')
 specimen = this.Specimen;
-
-%% check input
+% check input
 if nargin < 4, verbose = false; end
 if nargin < 3 || isempty(channel), channel = 1; end
 specimen.channelIndexCheck(channel)
@@ -27,17 +27,16 @@ disdecay = this.distanceDecay(zpos, sigma);
 pct = specimen.Channels(channel).energy .* disdecay;
 % for each target in specimen
 cnt = 0;  cntall = 0;
-for i = 1 : length(specimen.Channels(channel).targets)
-    target = specimen.Channels(channel).targets(i).target;
-    cntall = cntall + length(target.Concentration);
-    ofst = specimen.Channels(channel).targets(i).position - ...
-           target.BasePoint;
+for i = 1 : length(specimen.Targets)
+    target = specimen.Targets(i).target;
+    cntall = cntall + size(target.Body, 1);
+    ofst = specimen.Targets(i).offset;
     % for each point in target
     for j = 1 : size(target.Body, 1)
         coord = round(target.Body(j, :) + ofst);
         if ~specimen.inbound(coord), continue; end
         % calculate decay coefficient
-        coef = pct(coord(3)) * target.Concentration(j);
+        coef = pct(coord(3)) * target.Concentration(j, channel);
         % merge point spread img into image
         if coef > 0
             cnt = cnt + 1;
@@ -63,12 +62,12 @@ if verbose
     % show coeficient curve
     subplot(4, 2, 2), hold on
     plot(pct)
-    for i = 1 : length(specimen.Channels(channel).targets)
-        target = specimen.Channels(channel).targets(i).target;
+    for i = 1 : length(specimen.Targets)
+        target = specimen.Targets(i).target;
         if ~target.Interest, continue; end
-        z = round(specimen.Channels(channel).targets(i).position(3));
+        z = round(specimen.Targets(i).position(3));
         z = max(1, min(specimen.Shape(3), z));
-        illu = pct(z) * mean(target.Concentration);
+        illu = pct(z) * mean(target.Concentration(:, channel));
         plot(z, illu, 'rs', 'MarkerSize', 4)
     end
     title('Total Decay')

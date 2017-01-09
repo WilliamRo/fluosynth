@@ -10,7 +10,7 @@ assert(all(and(pct >= 0, pct <= 1)), ...
        '!! Illegal concentration.')
 
 % set concentration
-for i = 1 : part
+for i = part
     this.Concentration(i, col) = ...
          fs.utils.truncated_randn(pct);
 end
