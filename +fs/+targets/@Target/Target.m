@@ -27,6 +27,7 @@ classdef (Abstract) Target < handle
         [zl, zh] = Margin(this)
         ofst = Offset(this)
         coords = Coordinate(this)
+        targets = AllMembers(this)
     end
     %% Private Methods
     methods (Access = protected)
