@@ -22,6 +22,7 @@ classdef (Abstract) Target < handle
         varargout = align(this)
         setPosition(this, position)
         setConcentration(this, pct, col, part)
+        addSubTarget(this, target, position)
         % Property Methods
         p = BasePoint(this)
         [zl, zh] = Margin(this)
