@@ -22,9 +22,10 @@ if z + zh > this.Shape(3) || z - zl < 1
 end
 
 % add target to specimen
-index = length(this.Channels(channel).targets) + 1;
-this.Channels(channel).targets(index).target = target;
-this.Channels(channel).targets(index).position = position;
+index = length(this.Targets) + 1;
+this.Targets(index).target = target;
+this.Targets(index).position = position;
+this.Targets(index).offset = position - target.BasePoint;
 
 end
 

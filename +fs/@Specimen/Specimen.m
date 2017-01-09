@@ -6,20 +6,22 @@ classdef Specimen < handle
     %   >> spe = fs.Specimen([1000, 1000, 60], 3);
     %   
     %   MAIN STRUCTURE:
+    %     - spe.Targets(i):
+    %     |  - target: instance of class Target
+    %     |  - position: [1x3 double]
+    %     |  - offset:   [1x3 double]
     %     - spe.Channels(i): 
-    %     |  - targets(j): 
-    %     |  |  - target: instance of class Target
-    %     |  |  - position: [1x3 double]
     %     |  - energy: [spe.Shape(3)x1 double]
     %     |  - background
     %
     %% Readonly Properties
-    properties (GetAccess = public, SetAccess = private)
+    properties (GetAccess = public, SetAccess = protected)
         Shape
+        Targets = []
     end
     %% Public Properties
     properties (Access = public)
-        Channels
+        Channels = []
     end
     %% Public Methods
     methods (Access = public)
@@ -27,11 +29,10 @@ classdef Specimen < handle
         function this = Specimen(shape, channels)
             % check inputs
             if nargin < 2, channels = 1; end
-            if nargin < 1, shape = [500, 500, 300]; end
+            if nargin < 1, shape = [500, 500, 60]; end
             % initialize
             this.Shape = shape;
             for i = 1 : channels
-                this.Channels(i).targets = [];
                 this.Channels(i).energy = zeros(shape(3), 1);
                 this.Channels(i).background = 0;
             end

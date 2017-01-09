@@ -7,7 +7,6 @@ if nargin < 3, fid = []; end
 if nargin < 2 || isempty(channel), channel = 1; end
 assert(channel <= length(this.Channels), ...
        '!! Channel index out of bound.')
-targets = this.Channels(channel).targets;
 
 % open figure window
 if isempty(fid), figure()
@@ -15,9 +14,9 @@ elseif fid > 0, figure(fid), clf; end
 
 % plot 3d
 hold on
-for i = 1 : length(targets)
-    target = targets(i).target;
-    ofst = targets(i).position - target.BasePoint;
+for i = 1 : length(this.Targets)
+    target = this.Targets(i).target;
+    ofst = this.Targets(i).offset;
     points = target.Body + repmat(ofst, size(target.Body, 1), 1);
     plot3(points(:, 1), points(:, 2), points(:, 3), 'o-', ...
           'Color', target.Color, 'MarkerSize', target.MarkerSize)

@@ -9,7 +9,7 @@ if nargin < 2, num = 1; end
 % add random cilia
 for i = 1 : num
     cilium = fs.targets.Cilium.rand;
-    cilium.setConcentration();
+    cilium.setConcentration([0.95, 1], channel);
     this.addTarget(cilium, [], channel);
 end
 
