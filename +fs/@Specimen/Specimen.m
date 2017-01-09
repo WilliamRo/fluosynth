@@ -6,10 +6,7 @@ classdef Specimen < handle
     %   >> spe = fs.Specimen([1000, 1000, 60], 3);
     %   
     %   MAIN STRUCTURE:
-    %     - spe.Targets(i):
-    %     |  - target: instance of class Target
-    %     |  - position: [1x3 double]
-    %     |  - offset:   [1x3 double]
+    %     - spe.Targets{i}: instance of class Target
     %     - spe.Channels(i): 
     %     |  - energy: [spe.Shape(3)x1 double]
     %     |  - background
@@ -17,7 +14,7 @@ classdef Specimen < handle
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = protected)
         Shape
-        Targets = []
+        Targets = {}
     end
     %% Public Properties
     properties (Access = public)

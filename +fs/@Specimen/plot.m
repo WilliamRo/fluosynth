@@ -15,9 +15,8 @@ elseif fid > 0, figure(fid), clf; end
 % plot 3d
 hold on
 for i = 1 : length(this.Targets)
-    target = this.Targets(i).target;
-    ofst = this.Targets(i).offset;
-    points = target.Body + repmat(ofst, size(target.Body, 1), 1);
+    target = this.Targets{i};
+    points = target.Coordinate;
     plot3(points(:, 1), points(:, 2), points(:, 3), 'o-', ...
           'Color', target.Color, 'MarkerSize', target.MarkerSize)
 end

@@ -28,21 +28,24 @@ pct = specimen.Channels(channel).energy .* disdecay;
 % for each target in specimen
 cnt = 0;  cntall = 0;
 for i = 1 : length(specimen.Targets)
-    target = specimen.Targets(i).target;
-    cntall = cntall + size(target.Body, 1);
-    ofst = specimen.Targets(i).offset;
-    % for each point in target
-    for j = 1 : size(target.Body, 1)
-        coord = round(target.Body(j, :) + ofst);
-        if ~specimen.inbound(coord), continue; end
-        % calculate decay coefficient
-        coef = pct(coord(3)) * target.Concentration(j, channel);
-        % merge point spread img into image
-        if coef > 0
-            cnt = cnt + 1;
-            image = fs.utils.merge(image, coef * spread, coord(1:2));
-        end
-    end % end for j
+    targets = specimen.Targets{i}.AllMembers;
+    for k = 1 : length(targets)
+        target = targets{k};
+        cntall = cntall + size(target.Body, 1);
+        coords = round(target.Coordinate);
+        % for each point in target
+        for j = 1 : size(coords, 1)
+            coord = coords(j, :);
+            if ~specimen.inbound(coord), continue; end
+            % calculate decay coefficient
+            coef = pct(coord(3)) * target.Concentration(j, channel);
+            % merge point spread img into image
+            if coef > 0
+                cnt = cnt + 1;
+                image = fs.utils.merge(image, coef * spread, coord(1:2));
+            end
+        end % end for j
+    end % end for k
 end % end for i
 timespan = toc;
 % add noise
@@ -63,9 +66,9 @@ if verbose
     subplot(4, 2, 2), hold on
     plot(pct)
     for i = 1 : length(specimen.Targets)
-        target = specimen.Targets(i).target;
+        target = specimen.Targets{i};
         if ~target.Interest, continue; end
-        z = round(specimen.Targets(i).position(3));
+        z = round(target.Position(3));
         z = max(1, min(specimen.Shape(3), z));
         illu = pct(z) * mean(target.Concentration(:, channel));
         plot(z, illu, 'rs', 'MarkerSize', 4)
