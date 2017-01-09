@@ -22,10 +22,9 @@ if z + zh > this.Shape(3) || z - zl < 1
 end
 
 % add target to specimen
+target.setPosition(position)
 index = length(this.Targets) + 1;
-this.Targets(index).target = target;
-this.Targets(index).position = position;
-this.Targets(index).offset = position - target.BasePoint;
+this.Targets{index} = target;
 
 end
 
