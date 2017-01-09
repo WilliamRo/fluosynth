@@ -15,7 +15,7 @@ classdef (Abstract) Target < handle
         plot(this, fid)
         varargout = rotate(this, matrix)
         varargout = align(this)
-        setConcentration(this, pct)
+        setConcentration(this, pct, col, part)
         % Property Methods
         p = BasePoint(this)
         [zl, zh] = Margin(this)
