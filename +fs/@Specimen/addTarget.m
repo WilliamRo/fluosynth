@@ -1,13 +1,11 @@
-function addTarget(this, target, position, channel)
+function addTarget(this, target, position)
 %SPECIMEN::ADDTARGET ...
 %   ...
 
 % check input
-narginchk(2, 4)
+narginchk(2, 3)
 assert(isa(target, 'fs.targets.Target'), ...
        '!! The input target is illegal.')
-if nargin < 4, channel = 1; end
-this.channelIndexCheck(channel)
 [zl, zh] = target.Margin;
 if nargin < 3 || isempty(position)
     position = rand(1, 3) .* this.Shape;

@@ -3,7 +3,7 @@ function plot(this, channel, fid)
 %   ...
 
 % check input
-if nargin < 3, fid = []; end
+if nargin < 3, fid = fs.config.FigureIDs.target; end
 if nargin < 2 || isempty(channel), channel = 1; end
 assert(channel <= length(this.Channels), ...
        '!! Channel index out of bound.')
@@ -16,16 +16,19 @@ elseif fid > 0, figure(fid), clf; end
 hold on
 for i = 1 : length(this.Targets)
     target = this.Targets{i};
+    if size(target.Concentration, 2) < channel || ...
+            ~target.Concentration(i, channel), continue; end
     points = target.Coordinate;
-    plot3(points(:, 1), points(:, 2), points(:, 3), 'o-', ...
-          'Color', target.Color, 'MarkerSize', target.MarkerSize)
+    plot3(points(:, 1), points(:, 2), points(:, 3), ...
+        target.PlotStyle, 'Color', target.Color, ...
+        'MarkerSize', target.MarkerSize)
 end
 
 % draw frame
 fs.utils.drawframe(this.Shape)
   
 % limit axis
-rad = max(this.Shape) / 2;
+rad = max(this.Shape) / 2 + 20;
 xlim([this.Shape(1) / 2 - rad, this.Shape(1) / 2 + rad])
 ylim([this.Shape(2) / 2 - rad, this.Shape(2) / 2 + rad])
 zlim([this.Shape(3) / 2 - rad, this.Shape(3) / 2 + rad])

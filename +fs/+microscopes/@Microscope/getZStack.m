@@ -1,6 +1,6 @@
 function zstack = getZStack(this, stepsize, channel, verbose)
 %MICROSCOPE::GETZSTACK ...
-%   ...
+%   zstack = getZStack(stepsize, channel, verbose)
 
 % check input
 if nargin < 4, verbose = false; end

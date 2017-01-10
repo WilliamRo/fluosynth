@@ -24,15 +24,21 @@ this.Outline = [outline; outline(1, :)];
 %% generate body
 body = [];
 zrad = floor(this.Thickness / 2);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for each z position
+droprate = 0.2;
+amplitude = 5;
 for i = 1 : len
+    if rand < droprate, continue; end
     dist = norm(outline(i, :));
-    cnt = round(dist / 2);
-    x = linspace(0, outline(i, 1), cnt)';
-    y = linspace(0, outline(i, 2), cnt)';
-    body = [body; [x, y, zeros(cnt, 1)]];
+    cnt = max(round(dist / this.Thickness * this.DefaultDensity), 1);
+    for z = -zrad : zrad
+        spoke = repmat(sqrt(rand(cnt, 1)), 1, 2) .* ...
+            repmat(outline(i, :), cnt, 1);
+        spoke = [spoke, ones(cnt, 1) * z] + ...
+            (rand([cnt, 3]) - 0.5) * amplitude;
+        body = [body; spoke];
+    end
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 this.Body = body;
 
 end

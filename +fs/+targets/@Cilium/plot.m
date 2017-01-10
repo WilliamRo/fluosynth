@@ -13,7 +13,7 @@ plot@fs.targets.Target(this, fid);
 hold on
 plot3(this.InitPoints(:, 1), ...
       this.InitPoints(:, 2), ...
-      this.InitPoints(:, 3), 'ro', 'MarkerSize', 5)
+      this.InitPoints(:, 3), 'ro', 'MarkerSize', 3)
 title(sprintf('Length = %.2f', this.Length))
 
 end

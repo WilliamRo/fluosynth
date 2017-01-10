@@ -20,8 +20,10 @@ tic
 image = ones(this.Specimen.Shape(1:2)) * ...
         specimen.Channels(channel).background;
 % use default spread function
-spread = fs.utils.spread(fs.config.SpreadParams.size, ...
-                         fs.config.SpreadParams.sigma);
+for i = 1 : length(fs.config.SpreadParams.sigma)
+    spread{i} = fs.utils.spread(fs.config.SpreadParams.size, ...
+        fs.config.SpreadParams.sigma(i));
+end 
 sigma = fs.config.FakeDecayParams.distance;
 disdecay = this.distanceDecay(zpos, sigma);
 pct = specimen.Channels(channel).energy .* disdecay;
@@ -31,6 +33,9 @@ for i = 1 : length(specimen.Targets)
     targets = specimen.Targets{i}.AllMembers;
     for k = 1 : length(targets)
         target = targets{k};
+        if size(target.Concentration, 2) < channel || ...
+                ~max(target.Concentration(:, channel)), continue; 
+        end
         cntall = cntall + size(target.Body, 1);
         coords = round(target.Coordinate);
         % for each point in target
@@ -42,7 +47,8 @@ for i = 1 : length(specimen.Targets)
             % merge point spread img into image
             if coef > 0
                 cnt = cnt + 1;
-                image = fs.utils.merge(image, coef * spread, coord(1:2));
+                image = fs.utils.merge(...
+                    image, coef * spread{channel}, coord(1:2));
             end
         end % end for j
     end % end for k
@@ -69,11 +75,13 @@ if verbose
     plot(pct)
     for i = 1 : length(specimen.Targets)
         target = specimen.Targets{i};
+        if size(target.Concentration, 2) < channel || ...
+                ~max(target.Concentration(:, channel)), continue; end
         if ~target.Interest, continue; end
         z = round(target.Position(3));
         z = max(1, min(specimen.Shape(3), z));
         illu = pct(z) * mean(target.Concentration(:, channel));
-        plot(z, illu, 'rs', 'MarkerSize', 4)
+        plot(z, illu, 's', 'MarkerSize', 4, 'Color', target.Color)
     end
     title('Total Decay')
     % show image

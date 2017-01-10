@@ -40,8 +40,8 @@ classdef Specimen < handle
                 end % end if
             end % end for i
         end
-        addTarget(this, target, positoin, channel)
-        addRand(this, num, channel)
+        addTarget(this, target, positoin)
+        addRand(this, num)
         setBackground(this, concentration, channel)
         %
         channelIndexCheck(this, index)
