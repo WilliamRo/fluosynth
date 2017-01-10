@@ -1,6 +1,6 @@
 function r = truncated_randn(range, mid)
-%TRUNCATED_RANDN ...
-%   ...
+%TRUNCATED_RANDN
+%   SYNTAX: r = truncated_randn(range, mid)
 
 % check input 
 narginchk(1, 2)

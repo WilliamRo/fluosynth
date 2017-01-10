@@ -12,7 +12,8 @@ if fid, figure(fid); else figure(); end
 % plot 3D
 clf
 plot3(this.Body(:, 1), this.Body(:, 2), this.Body(:, 3), ...
-      'o-', 'MarkerSize', 2.6, 'Color', this.Color)
+      this.PlotStyle, 'MarkerSize', this.MarkerSize, ...
+      'Color', this.Color)
   
 % limit axis
 [bd_max, bd_min] = deal(max(this.Body, [], 1), ...

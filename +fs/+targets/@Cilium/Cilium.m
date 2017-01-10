@@ -8,7 +8,8 @@ classdef (Sealed) Cilium < fs.targets.Target
         LengthBoundsUm = [1, 9]        % um
         % [SHOW]
         Color = [0, 0.45, 0.1]
-        MarkerSize = 0.8
+        MarkerSize = 2.6
+        PlotStyle = 'o-'
     end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)

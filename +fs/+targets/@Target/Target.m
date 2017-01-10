@@ -39,6 +39,7 @@ classdef (Abstract) Target < handle
         Interest
         Color
         MarkerSize
+        PlotStyle
     end
     %% (Abstract) Static Methods
     methods (Abstract, Static)

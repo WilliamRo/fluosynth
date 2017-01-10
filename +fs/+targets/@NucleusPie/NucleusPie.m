@@ -1,0 +1,50 @@
+classdef (Sealed) NucleusPie < fs.targets.Target
+    %NUCLEUS ...
+    %   ...
+    %% Constants
+    properties (Constant)
+        Interest = true
+        % [SHOW]
+        Color = [0, 0.1, 0.6]
+        MarkerSize = 1
+        PlotStyle = '.'
+        % DEFAULT
+        MaxAspectRatio = 2
+        DefaultThickness = 12
+        DefaultMinor = 35
+        DefaultDistort = 0.2
+    end
+    %% Readonly Properties
+    properties (GetAccess = public, SetAccess = protected)
+        InitPoints
+        Outline
+        Thickness
+    end
+    %% Public Methods
+    methods (Access = public)
+        % Constructor
+        function this = NucleusPie(initpoints, thickness)
+            % check input
+            narginchk(2, 2);
+            % set parameters
+            this.InitPoints = initpoints;
+            this.Thickness = thickness;
+            % initialize
+            this.initialize()
+        end
+        % Property Methods
+        p = BasePoint(this)
+        % [SHOW]
+        showOutline(this)
+    end
+    %% Static Methods
+    methods (Static)
+        nucleus = rand(radius)
+    end
+    %% Private Methods
+    methods (Access = private)
+        initialize(this)
+    end
+    
+end
+

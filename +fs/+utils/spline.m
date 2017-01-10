@@ -11,7 +11,7 @@ function [p, l] = spline(t, c, tt)
 narginchk(2, 3)
 if isempty(t), t = c(:, 1); end
 if nargin < 3, 
-    tt = linspace(t(1), t(end), 200);
+    tt = linspace(t(1), t(end), 1000);
 end
 assert(min(size(t)) == 1)
 assert(min(size(tt)) == 1)
