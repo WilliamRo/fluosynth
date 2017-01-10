@@ -50,6 +50,8 @@ end % end for i
 timespan = toc;
 % add noise
 image = this.addNoise(image);
+image = fs.LabBench.gray2rgb(image, ...
+    specimen.Channels(channel).rgbindex);
 
 %% show details
 if verbose

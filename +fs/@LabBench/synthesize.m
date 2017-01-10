@@ -8,9 +8,9 @@ if nargin < 1, saveimg = false; end
 if verbose, interval = 0.01; else interval = 0; end
 
 % initialize specimen
-s = fs.Specimen([500, 500, 60], 1);
+s = fs.Specimen([500, 500, 60], 1, 2);
 % set background to s
-s.setBackground(0.02, 1)
+s.setBackground(0.08, 1)
 % add some random targets to s
 s.addRand(11, 1)
 
