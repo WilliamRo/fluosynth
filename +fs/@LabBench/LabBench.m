@@ -10,7 +10,7 @@ classdef LabBench < handle
         synthesize(saveimg, verbose)
         images = gray2rgb(images, index, bg)
         image = addRuler(image)
-        saveImage(zstack, filename, extension, ruler)
+        saveImage(zstack, filename, extension, ruler, channel)
     end % public static methods
     %% Public Methods
     methods (Access = public)
