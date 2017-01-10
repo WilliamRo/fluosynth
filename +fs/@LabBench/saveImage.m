@@ -12,13 +12,13 @@ assert(ischar(extension), '!! Input extension is illegal.')
 
 % write image to file
 prestr = [fs.config.SynthFolder, filename];
-for i = 1 : size(zstack, 3)
+for i = 1 : size(zstack, 4)
     index = '';
-    if size(zstack, 3) > 1, index = sprintf('%02d', i); end
+    if size(zstack, 4) > 1, index = sprintf('%02d', i); end
     if ruler
-        zstack(:, :, i) = fs.LabBench.addRuler(zstack(:, :, i));
+        zstack(:, :, :, i) = fs.LabBench.addRuler(zstack(:, :, :, i));
     end
-    imwrite(zstack(:, :, i), [prestr, index, '.', extension])
+    imwrite(zstack(:, :, :, i), [prestr, index, '.', extension])
 end
 
 end

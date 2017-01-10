@@ -10,12 +10,12 @@ if nargin < 2 || isempty(stepsize), stepsize = 3; end
 % generate step information, initialize zstack
 shape = this.Specimen.Shape;
 zs = 1 : stepsize : shape(3);
-zstack = zeros(shape(1), shape(2), length(zs));
+zstack = zeros(shape(1), shape(2), 3, length(zs));
 
 % generate zstack
 for i = 1 : length(zs)
     this.illuminate(zs(i), channel);
-    zstack(:, :, i) = this.shoot(zs(i), channel, verbose);
+    zstack(:, :, :, i) = this.shoot(zs(i), channel, verbose);
     % verbose
     if verbose
         view(fs.config.BestView)
