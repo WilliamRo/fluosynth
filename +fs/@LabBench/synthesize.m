@@ -27,7 +27,7 @@ zstack = m.getZStack(3, 1, 0.1);
 
 % save to file
 if saveimg
-    fs.LabBench.saveImage(zstack, [], [], true);
+    fs.LabBench.saveImage(zstack, [], [], true, 2);
 end
 
 end
