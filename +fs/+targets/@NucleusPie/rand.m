@@ -22,7 +22,7 @@ for i = 1 : num_points
     initpoints(i, 2) = sin(t(i)) * minor * coefy;
 end
 % rotate
-matrix = orth(rand(2));
+matrix = orth(rand(2) - 0.5);
 initpoints = (matrix * initpoints')';
 
 %% create nucleus
