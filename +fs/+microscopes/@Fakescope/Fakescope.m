@@ -22,7 +22,7 @@ classdef Fakescope < fs.microscopes.Microscope
         y = distanceDecay(this, zpos, varargin)
         % Implementation for abstract methods
         illuminate(this, zpos, channel)
-        image = shoot(this, zpos, channel, verbose)
+        image = shoot(this, zpos, channel, varargin)
     end
     %% Public Static Methods
     methods (Static, Access = public)

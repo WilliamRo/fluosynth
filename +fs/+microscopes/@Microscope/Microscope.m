@@ -10,12 +10,12 @@ classdef  (Abstract) Microscope < handle
     methods (Access = public)
         setSpecimen(this, specimen)
         setNoise(this, varargin)
-        zstack = getZStack(this, stepsize, channel, verbose)
+        zstack = getZStack(this, channel, stepsize, varargin)
     end    
     %% (Abstract) Public Methods
     methods (Abstract, Access = public)
         illuminate(this, zpos, channel)
-        image = shoot(this, zpos, channel, verbose)
+        image = shoot(this, zpos, channel, varargin)
     end
     %% Private Methods
     methods (Access = protected)

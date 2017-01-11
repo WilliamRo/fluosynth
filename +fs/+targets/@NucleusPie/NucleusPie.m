@@ -14,6 +14,7 @@ classdef (Sealed) NucleusPie < fs.targets.Target
         DefaultMinor = 35
         DefaultDistort = 0.2
         DefaultDensity = 0.1
+        ConcentrationRange = [0.5, 1]
     end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = protected)

@@ -9,7 +9,7 @@ classdef (Sealed, Abstract) config
         FigureIDs = struct('shoot', 800, 'target', 799)
         
         % SpreadParams.size must be ODD!
-        SpreadParams = struct('size', 17, 'sigma', [1, 1.2, 2.6])
+        SpreadParams = struct('size', 17, 'sigma', [1, 1.2, 2.2])
         SynthFolder = 'sdata/'
         % [SHOW]
         BestView = [90, 35, 40];

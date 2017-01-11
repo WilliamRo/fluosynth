@@ -1,19 +1,33 @@
-function image = shoot(this, zpos, channel, verbose)
+function image = shoot(this, zpos, channel, varargin)
 %FAKESCOPE:SHOOT generates a synthetic image at the given z-position
 %   in specimen set to THIS microscope
 %
-%   SYNTAX: image = fakescope.shoot(zpos, channel, verbose)
+%   SYNTAX: image = fakescope.shoot(zpos, channel, ...)
 %
 
 %% check specimen and input
 assert(~isempty(this.Specimen), '!! Specimen not set.')
 specimen = this.Specimen;
 % check input
-if nargin < 4, verbose = false; end
-if nargin < 3 || isempty(channel), channel = 1; end
+narginchk(3, 10);
 specimen.channelIndexCheck(channel)
-if nargin < 2 || isempty(zpos)
-    zpos = round(specimen.Shape(3) / 2); end
+assert(zpos >= 1 && zpos <= specimen.Shape(3), ...
+    '!! Input z-position is illegal.')
+% set optional
+verbose = false;
+rgb = true;
+i = 1;
+while i <= length(varargin)
+    switch lower(varargin{i})
+        case 'verbose'
+            verbose = true;
+        case 'rgb'
+            rgb = true;
+        case 'gray'
+            rgb = false;
+    end
+    i = i + 1;
+end
 
 %% generate image
 tic
@@ -56,8 +70,8 @@ end % end for i
 timespan = toc;
 % add noise
 image = this.addNoise(image);
-image = fs.LabBench.gray2rgb(image, ...
-    specimen.Channels(channel).rgbindex);
+if rgb, image = fs.LabBench.gray2rgb(image, ...
+        specimen.Channels(channel).rgbindex); end
 
 %% show details
 if verbose

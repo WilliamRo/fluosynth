@@ -1,25 +1,26 @@
-function zstack = getZStack(this, stepsize, channel, verbose)
+function zstack = getZStack(this, channel, stepsize, varargin)
 %MICROSCOPE::GETZSTACK ...
 %   zstack = getZStack(stepsize, channel, verbose)
 
 % check input
-if nargin < 4, verbose = false; end
-if nargin < 3 || isempty(channel), channel = 1; end
-if nargin < 2 || isempty(stepsize), stepsize = 3; end
+narginchk(2, 6)
+if nargin < 3 || isempty(stepsize), stepsize = 3; end
+rgb = isempty(find(strcmp(varargin, 'gray'), 1));
 
 % generate step information, initialize zstack
 shape = this.Specimen.Shape;
 zs = 1 : stepsize : shape(3);
-zstack = zeros(shape(1), shape(2), 3, length(zs));
+if rgb, zstack = zeros(shape(1), shape(2), 3, length(zs));
+else zstack = zeros(shape(1), shape(2), 1, length(zs)); end
 
 % generate zstack
 for i = 1 : length(zs)
     this.illuminate(zs(i), channel);
-    zstack(:, :, :, i) = this.shoot(zs(i), channel, verbose);
+    zstack(:, :, :, i) = this.shoot(zs(i), channel, varargin{:});
     % verbose
-    if verbose
-        view(fs.config.BestView)
-        if i ~= length(zs), pause(verbose); end
+    if ~isempty(find(strcmp(varargin, 'verbose'), 1))
+        view(fs.config.BestView), drawnow
+        if i ~= length(zs), pause(0.01); end
     end
 end
 

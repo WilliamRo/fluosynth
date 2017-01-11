@@ -15,7 +15,7 @@ end
 % add random nucleus
 for i = 1 : num
     nucleus = fs.targets.NucleusPie.rand;
-    nucleus.setConcentration([0.2, 1], 3);
+    nucleus.setConcentration(nucleus.ConcentrationRange, 3);
     this.addTarget(nucleus, []);
 end
 

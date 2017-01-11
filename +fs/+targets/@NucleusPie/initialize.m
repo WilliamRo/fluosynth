@@ -26,12 +26,12 @@ body = [];
 zrad = floor(this.Thickness / 2);
 % for each z position
 droprate = 0.2;
-amplitude = 5;
+amplitude = 3;
 for i = 1 : len
     if rand < droprate, continue; end
     dist = norm(outline(i, :));
     cnt = max(round(dist / this.Thickness * this.DefaultDensity), 1);
-    for z = -zrad : zrad
+    for z = -zrad : 2 : zrad
         spoke = repmat(sqrt(rand(cnt, 1)), 1, 2) .* ...
             repmat(outline(i, :), cnt, 1);
         spoke = [spoke, ones(cnt, 1) * z] + ...

@@ -7,7 +7,7 @@ classdef LabBench < handle
     %% Public Static Methods
     methods (Access = public, Static)
         img = rand(varargin)
-        synthesize(channel, saveimg, verbose)
+        synthesize(channel, varargin)
         images = gray2rgb(images, index, bg)
         image = addRuler(image)
         saveImage(zstack, filename, extension, ruler, channel)

@@ -1,18 +1,16 @@
-function synthesize(channel, saveimg, verbose)
+function synthesize(channel, varargin)
 %LABBENCH::SYNTHESIZE ...
 %   ...
 
 % check input
-if nargin < 3, verbose = true; end
-if nargin < 2, saveimg = false; end
-if nargin < 1, channel = 2; end
-if verbose, interval = 0.01; else interval = 0; end
+narginchk(1, 5)
 
 % initialize specimen
 s = fs.Specimen([500, 500, 60], 3, [1, 2, 3]);
 % set background to s
+s.setBackground(0.05, 1)
 s.setBackground(0.1, 2)
-s.setBackground(0.08, 3)
+s.setBackground(0.02, 3)
 % add some random targets to s
 s.addRand(5)
 
@@ -21,14 +19,15 @@ m = fs.microscopes.Fakescope();
 % set specimen to m
 m.setSpecimen(s);
 % add noises to m
-m.setNoise('gaussian', 0.002);
+m.setNoise('gaussian', 0.001);
 m.setNoise('poisson');
 
 % get z-stack
-zstack = m.getZStack(3, channel, interval);
+stepsize = 3;
+zstack = m.getZStack(channel, stepsize, varargin{:});
 
 % save to file
-if saveimg
+if ~isempty(find(strcmp(varargin, 'save'), 1))
     fs.LabBench.saveImage(zstack, [], [], true, 2);
 end
 
