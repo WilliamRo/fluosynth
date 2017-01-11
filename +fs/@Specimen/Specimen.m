@@ -47,7 +47,7 @@ classdef Specimen < handle
         channelIndexCheck(this, index)
         flag = inbound(this, coord)
         % [SHOW]
-        plot(this, channel, fid)
+        plot(this, channels, fid)
         showEnergy(this, channel)
     end
     

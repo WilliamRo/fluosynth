@@ -5,11 +5,10 @@ classdef (Sealed) Cilium < fs.targets.Target
     %% Constants
     properties (Constant)
         Interest = true
-        SpreadSigma = 1.2
         LengthBoundsUm = [1, 9]        % um
         % [SHOW]
         Color = [0, 0.45, 0.1]
-        MarkerSize = 0.6
+        MarkerSize = 0.9
         PlotStyle = 'o-'
     end
     %% Readonly Properties

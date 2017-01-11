@@ -9,11 +9,11 @@ classdef (Sealed) NucleusPie < fs.targets.Target
         MarkerSize = 1
         PlotStyle = '.'
         % DEFAULT
-        MaxAspectRatio = 2
         DefaultThickness = 8
         DefaultMinor = 35
         DefaultDistort = 0.2
         DefaultDensity = 0.1
+        MaxAspectRatio = 2
         ConcentrationRange = [0.5, 1]
     end
     %% Readonly Properties
