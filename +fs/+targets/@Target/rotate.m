@@ -5,7 +5,7 @@ function varargout = rotate(this, matrix)
 % check input
 narginchk(1, 2)
 if nargin < 2 || isempty(matrix), 
-    matrix = orth(rand(3)); 
+    matrix = orth(rand(3) - 0.5); 
 end
 
 % rotate

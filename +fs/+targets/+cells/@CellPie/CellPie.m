@@ -44,6 +44,7 @@ classdef CellPie < fs.targets.Target
     %% Private Methods
     methods (Access = private)
         initialize(this)
+        [thetas, vertexes, pits] = randDataPoints(this, index)
     end
     
 end
