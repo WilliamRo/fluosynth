@@ -5,8 +5,8 @@ classdef (Sealed) NucleusPie < fs.targets.Target
     properties (Constant)
         Interest = true
         % [SHOW]
-        Color = [0, 0.1, 0.6]
-        MarkerSize = 1
+        Color = [0.3, 0.5, 0.8]
+        MarkerSize = 0.7
         PlotStyle = '.'
         % DEFAULT
         DefaultThickness = 8
