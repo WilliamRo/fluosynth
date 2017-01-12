@@ -1,6 +1,6 @@
 function saveImage(zstack, filename, extension, ruler, channel)
 %LABBENCH::SAVEIMAGE ...
-%   ...
+%   SYNTAX: saveImage(zstack, filename, extension, ruler, channel)
 
 % check input
 narginchk(1, 5)
@@ -14,15 +14,15 @@ assert(ischar(extension), '!! Input extension is illegal.')
 % write image to file
 switch channel
     case 1
-        posstr = 'R';
+        channelstr = 'R';
     case 2
-        posstr = 'G';
+        channelstr = 'G';
     case 3
-        posstr = 'B';
+        channelstr = 'B';
     otherwise
-        posstr = '';
+        channelstr = '';
 end
-prestr = [fs.config.SynthFolder, filename];
+prestr = [fs.config.SynthFolder, channelstr, filename];
 for i = 1 : size(zstack, 4)
     index = '';
     if size(zstack, 4) > 1, index = sprintf('%02d', i); end
@@ -30,7 +30,15 @@ for i = 1 : size(zstack, 4)
         zstack(:, :, :, i) = fs.LabBench.addRuler(zstack(:, :, :, i));
     end
     imwrite(zstack(:, :, :, i), ...
-        [prestr, index, posstr, '.', extension])
+        [prestr, index, '.', extension])
 end
+
+% ====================================================================
+if size(zstack, 4) > 1
+    image = max(zstack, [], 4);
+    imwrite(image, [prestr, '00', '.', extension]);
+    figure, imshow(image);
+end
+% ====================================================================
 
 end

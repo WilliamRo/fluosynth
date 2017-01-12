@@ -1,4 +1,4 @@
-function synthesize(channel, varargin)
+function synthesize(channels, varargin)
 %LABBENCH::SYNTHESIZE ...
 %   ...
 
@@ -6,13 +6,13 @@ function synthesize(channel, varargin)
 narginchk(1, 5)
 
 % initialize specimen
-s = fs.Specimen([500, 500, 60], 3, [1, 2, 3]);
+s = fs.Specimen([1000, 1000, 60], 3, [1, 2, 3]);
 % set background to s
 s.setBackground(0.05, 1)
-s.setBackground(0.1, 2)
+s.setBackground(0.06, 2)
 s.setBackground(0.02, 3)
 % add some random targets to s
-s.addRand(3)
+s.addRand(12)
 
 % initialize fakescope
 m = fs.microscopes.Fakescope();
@@ -24,11 +24,12 @@ m.setNoise('poisson');
 
 % get z-stack
 stepsize = 3;
-zstack = m.getZStack(channel, stepsize, varargin{:});
-
-% save to file
-if ~isempty(find(strcmp(varargin, 'save'), 1))
-    fs.LabBench.saveImage(zstack, [], [], true, 2);
+for channel = channels
+    zstack = m.getZStack(channel, stepsize, varargin{:});
+    % save to file
+    if ~isempty(find(strcmp(varargin, 'save'), 1))
+        fs.LabBench.saveImage(zstack, [], [], true, channel);
+    end
 end
 
 end

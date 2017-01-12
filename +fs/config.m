@@ -5,7 +5,7 @@ classdef (Sealed, Abstract) config
     %% Constants
     properties (Constant)
         LengthPerPixel = 0.163       % um
-        FakeDecayParams = struct('energy', 5, 'distance', 26)
+        FakeDecayParams = struct('energy', 10, 'distance', 26)
         FigureIDs = struct('shoot', 800, 'target', 799)
         
         % SpreadParams.size must be ODD!
