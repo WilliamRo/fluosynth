@@ -23,14 +23,15 @@ this.Outline = [outline; outline(1, :)];
 
 %% generate body
 body = [];
-zrad = floor(this.Thickness / 2);
-% for each z position
+zrad = this.ZRadius;
 droprate = 0.2;
 amplitude = 3;
+% for each outline point
 for i = 1 : len
     if rand < droprate, continue; end
     dist = norm(outline(i, :));
     cnt = max(round(dist / this.Thickness * this.DefaultDensity), 1);
+    % for each z position
     for z = -zrad : 2 : zrad
         spoke = repmat(sqrt(rand(cnt, 1)), 1, 2) .* ...
             repmat(outline(i, :), cnt, 1);

@@ -20,7 +20,8 @@ thetas(2:end) = thetas(2:end) + ...
 % generate vertexes and pits
 range = this.DefaultParams.SpokeRange;
 vertexes = rand(vertex_num, 1) * (range(2) - range(1)) + range(1);
-pits = rand(vertex_num, 1);
+pits = rand(vertex_num, 1) * (1 - this.DefaultParams.PitMargin) + ...
+    this.DefaultParams.PitMargin;
 
 end
 

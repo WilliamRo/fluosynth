@@ -36,6 +36,7 @@ classdef (Sealed) NucleusPie < fs.targets.Target
         end
         % Property Methods
         p = BasePoint(this)
+        zrad = ZRadius(this)
         % [SHOW]
         showOutline(this)
         plot(this)
