@@ -56,7 +56,7 @@ body = [];
 nuzrad = nucleus.ZRadius;
 zrad = nuzrad + this.DefaultParams.ZExtend;
 amplitude = 2;
-minthickrad = 1;
+minthickrad = 0;
 theta0 = cart2pol(nucleus.Outline(1, 2), nucleus.Outline(1, 1));
 slope = this.DefaultParams.SlopeBound / (zrad - minthickrad);
 % generate spokes for each points on eage
@@ -94,8 +94,9 @@ for i = 1 : size(this.Outline, 1)
         if abs(z) <= minthickrad && ...
                 rand < this.DefaultParams.CellEdgeCoef
             distr(end) = 1; 
-            distr = [distr; 1];
-            cnt = cnt + 1;
+            appcnt = 1;
+            distr = [distr; ones(appcnt, 1)];
+            cnt = cnt + appcnt;
         end
         % generate spoke
         spoke = repmat(distr, 1, 2) .* ...

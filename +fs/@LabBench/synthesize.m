@@ -12,7 +12,7 @@ s.setBackground(0.05, 1)
 s.setBackground(0.1, 2)
 s.setBackground(0.02, 3)
 % add some random targets to s
-s.addRand(8)
+s.addRand(3)
 
 % initialize fakescope
 m = fs.microscopes.Fakescope();

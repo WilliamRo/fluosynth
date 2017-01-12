@@ -12,11 +12,11 @@ for i = 1 : num
     this.addTarget(cilium, []);
 end
 
-% add random nucleus
+% add random cells
 for i = 1 : num
-    nucleus = fs.targets.NucleusPie.rand;
-    nucleus.setConcentration(nucleus.ConcentrationRange, 3);
-    this.addTarget(nucleus, []);
+    cellpie = fs.targets.cells.CellPie.rand;
+    cellpie.setConcentration();
+    this.addTarget(cellpie, []);
 end
 
 end

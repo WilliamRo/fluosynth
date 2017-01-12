@@ -17,7 +17,7 @@ classdef (Abstract) Target < handle
     end
     %% Public Methods
     methods (Access = public)
-        plot(this, fid)
+        plot(this, fid, issub)
         varargout = rotate(this, matrix)
         varargout = align(this)
         setPosition(this, position)
