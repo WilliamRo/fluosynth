@@ -1,8 +1,9 @@
 classdef LabBench < handle
     %LABBENCH ...
     %   ...
-    %%
-    properties
+    %%  Constants
+    properties (Constant, Access = public)
+        ChannelNames = {'R', 'G', 'B'};
     end
     %% Public Static Methods
     methods (Access = public, Static)

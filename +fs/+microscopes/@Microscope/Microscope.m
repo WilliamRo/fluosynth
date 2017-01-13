@@ -7,8 +7,11 @@ classdef  (Abstract) Microscope < handle
         NoiseParams = struct('gaussian', [])
     end
     %% Private Properties
-    properties (Access = private)
-        %
+    properties (Access = private, SetObservable)
+        % Work Status
+        CurrentChannel
+        TotalTargetsCount
+        Cursor
     end
     %% Public Methods
     methods (Access = public)
@@ -20,6 +23,7 @@ classdef  (Abstract) Microscope < handle
     methods (Access = protected)
         image = addNoise(this, image)
         % [SHOW]
+        initWorkStatus(this, channel)
         showPlane(this, z, zexc)
     end
     %% (Abstract) Public Methods

@@ -12,15 +12,10 @@ assert(ischar(filename), '!! Input filename is illegal.')
 assert(ischar(extension), '!! Input extension is illegal.')
 
 % write image to file
-switch channel
-    case 1
-        channelstr = 'R';
-    case 2
-        channelstr = 'G';
-    case 3
-        channelstr = 'B';
-    otherwise
-        channelstr = '';
+try
+    channelstr = fs.LabBench.ChannelNames{channel};
+catch
+    channelstr = '';
 end
 prestr = [fs.config.SynthFolder, channelstr, filename];
 for i = 1 : size(zstack, 4)

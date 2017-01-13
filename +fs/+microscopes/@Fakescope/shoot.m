@@ -42,13 +42,13 @@ sigma = fs.config.FakeDecayParams.distance;
 disdecay = this.distanceDecay(zpos, sigma);
 pct = specimen.Channels(channel).energy .* disdecay;
 % for each target in specimen
-cnt = 0;  cntall = 0;
+cntall = specimen.TotalTargetsCount(channel);
+cnt = 0;  
 for i = 1 : length(specimen.Targets)
     targets = specimen.Targets{i}.AllMembers;
     for k = 1 : length(targets)
         target = targets{k};
         if ~target.checkChannel(channel), continue; end
-        cntall = cntall + size(target.Body, 1);
         coords = round(target.Coordinate);
         % for each point in target
         for j = 1 : size(coords, 1)
@@ -87,8 +87,7 @@ if verbose
     plot(pct)
     for i = 1 : length(specimen.Targets)
         target = specimen.Targets{i};
-        if size(target.Concentration, 2) < channel || ...
-                ~max(target.Concentration(:, channel)), continue; end
+        if ~target.checkChannel(channel), continue; end
         if ~target.Interest, continue; end
         z = round(target.Position(3));
         z = max(1, min(specimen.Shape(3), z));

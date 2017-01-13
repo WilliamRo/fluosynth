@@ -46,6 +46,8 @@ classdef Specimen < handle
         %
         channelIndexCheck(this, index)
         flag = inbound(this, coord)
+        % Property Methods
+        count = TotalTargetsCount(this, channel);
         % [SHOW]
         plot(this, channels, fid)
         showEnergy(this, channel)
