@@ -14,15 +14,20 @@ if rgb, zstack = zeros(shape(1), shape(2), 3, length(zs));
 else zstack = zeros(shape(1), shape(2), 1, length(zs)); end
 
 % generate zstack
+total = this.Specimen.TotalTargetsCount(channel);
+this.initProgress(channel, total * length(zs));
 for i = 1 : length(zs)
     this.illuminate(zs(i), channel);
     zstack(:, :, :, i) = this.shoot(zs(i), channel, varargin{:});
+    this.showProgress(i * total);
     % verbose
     if ~isempty(find(strcmp(varargin, 'verbose'), 1))
         view(fs.config.BestView), drawnow
         if i ~= length(zs), pause(0.01); end
     end
 end
+
+this.finishProgress();
 
 end
 

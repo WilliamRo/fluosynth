@@ -7,11 +7,8 @@ classdef  (Abstract) Microscope < handle
         NoiseParams = struct('gaussian', [])
     end
     %% Private Properties
-    properties (Access = private, SetObservable)
-        % Work Status
-        CurrentChannel
-        TotalTargetsCount
-        Cursor
+    properties (Access = private)
+        ProgressBar = fs.utils.ProgressBar
     end
     %% Public Methods
     methods (Access = public)
@@ -23,7 +20,13 @@ classdef  (Abstract) Microscope < handle
     methods (Access = protected)
         image = addNoise(this, image)
         % [SHOW]
-        initWorkStatus(this, channel)
+        initProgress(this, channel, total)
+        function showProgress(this, cursor)
+            this.ProgressBar.moveCursor(cursor);
+        end
+        function finishProgress(this)
+            this.ProgressBar.finish();
+        end
         showPlane(this, z, zexc)
     end
     %% (Abstract) Public Methods
