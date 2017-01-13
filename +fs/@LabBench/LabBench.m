@@ -4,12 +4,14 @@ classdef LabBench < handle
     %%  Constants
     properties (Constant, Access = public)
         ChannelNames = {'R', 'G', 'B'};
+        %LinearColorMap = {[2, 0.1647], [1, 0.2353], [2, 0.2353]};
+        LinearColorMap = {[2, 0.1647], [1, 0.2353], [2, 0.5353]};
     end
     %% Public Static Methods
     methods (Access = public, Static)
         img = rand(varargin)
         synthesize(channel, varargin)
-        images = gray2rgb(images, index, bg)
+        images = gray2rgb(images, index)
         image = addRuler(image)
         saveImage(zstack, filename, extension, ruler, channel)
     end % public static methods
