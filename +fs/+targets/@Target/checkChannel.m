@@ -1,0 +1,9 @@
+function flag = checkChannel(this, channel)
+%TARGET::CHECKCHANNEL ...
+%   ...
+
+flag = size(this.Concentration, 2) >= channel && ...
+    max(this.Concentration(:, channel));
+
+end
+

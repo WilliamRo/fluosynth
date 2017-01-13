@@ -23,6 +23,7 @@ classdef (Abstract) Target < handle
         setPosition(this, position)
         setConcentration(this, pct, col, part)
         addSubTarget(this, target, position)
+        flag = checkChannel(this, channel)
         % Property Methods
         p = BasePoint(this)
         [zl, zh] = Margin(this)

@@ -6,13 +6,13 @@ function synthesize(channels, varargin)
 narginchk(1, 5)
 
 % initialize specimen
-s = fs.Specimen([1000, 1000, 60], 3, [1, 2, 3]);
+s = fs.Specimen([500, 500, 60], 3, [1, 2, 3]);
 % set background to s
 s.setBackground(0.05, 1)
 s.setBackground(0.06, 2)
 s.setBackground(0.02, 3)
 % add some random targets to s
-s.addRand(12)
+s.addRand(4)
 
 % initialize fakescope
 m = fs.microscopes.Fakescope();

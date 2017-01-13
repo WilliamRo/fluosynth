@@ -47,9 +47,7 @@ for i = 1 : length(specimen.Targets)
     targets = specimen.Targets{i}.AllMembers;
     for k = 1 : length(targets)
         target = targets{k};
-        if size(target.Concentration, 2) < channel || ...
-                ~max(target.Concentration(:, channel)), continue; 
-        end
+        if ~target.checkChannel(channel), continue; end
         cntall = cntall + size(target.Body, 1);
         coords = round(target.Coordinate);
         % for each point in target

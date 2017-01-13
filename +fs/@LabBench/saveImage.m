@@ -37,8 +37,12 @@ end
 if size(zstack, 4) > 1
     image = max(zstack, [], 4);
     imwrite(image, [prestr, '00', '.', extension]);
-    figure, imshow(image);
+%     figure, imshow(image);
 end
 % ====================================================================
+
+% display information
+if isempty(index), objstr = 'Image'; else objstr = 'Image stack'; end
+fprintf('>> %s of channel %s saved.\n', objstr, channelstr);
 
 end
