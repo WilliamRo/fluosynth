@@ -52,20 +52,14 @@ deltas(mask) = 2*pi - deltas(mask);
 density = max(deltas) ./ deltas;
 
 %% generate body
-body = [];
+[body, inside] = deal([]);
 nuzrad = nucleus.ZRadius;
 zrad = nuzrad + this.DefaultParams.ZExtend;
 amplitude = 2;
-minthickrad = 0;
 theta0 = cart2pol(nucleus.Outline(1, 2), nucleus.Outline(1, 1));
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% slope = this.DefaultParams.SlopeBound / (zrad - minthickrad);
-% ====================================================================
-% DELETE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generate spokes for each points on eage
 for i = 1 : size(this.Outline, 1)
-    % drop
+    % 1st round drop
     droprate = 0.06 * density(i);
     if rand < droprate, continue; end
     % get cell radius on this point
@@ -75,56 +69,33 @@ for i = 1 : size(this.Outline, 1)
     % get nucleus radius with respect to this point
     low = norm(coord(theta));
     % count of points on this spoke
-    basecnt = max(round( ...
+    cnt = max(round( ...
         high / nucleus.Thickness * this.DefaultParams.Density), 1); 
     % for each z position
     for z = -zrad : 1 : zrad
-        cnt = basecnt;
-        if abs(z) <= nuzrad, side = 'inside'; 
-        else side = 'outside'; end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%         distr = sqrt(rand(cnt, 1));
-% ====================================================================
+        isinside = abs(z) <= nuzrad;
+        % 2nd round drop
+        if isinside && rand < this.DefaultParams.InsideDropRate
+            continue; end
+        if isinside, side = 'inside'; else side = 'outside'; end
         distr = this.DistrAlongSpoke(cnt, side);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % generate slope
-        highslp = high;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%         if abs(z) > minthickrad && false
-%             x = abs(z) - minthickrad;
-%             highslp = (1 - x * slope) * (high - low) + low;
-%         end
-% ====================================================================
-% DELETE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % keep fluorophore out of nucleus
-        if abs(z) <= nuzrad
-            distr = distr*(highslp/high-low/high) + low/high;
-        end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        
-%         % make nucleus edge bright
-%         if rand < this.DefaultParams.NucleusEdgeCoef
-%             distr(1) = low/high; end
-%         % make cell edge bright
-%         if abs(z) <= minthickrad && ...
-%                 rand < this.DefaultParams.CellEdgeCoef
-%             distr(end) = 1; 
-%             appcnt = 1;
-%             distr = [distr; ones(appcnt, 1)];
-%             cnt = cnt + appcnt;
-%         end
-% ====================================================================
-% DELETE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        if isinside, distr = distr*(1 - low/high) + low/high; end
         % generate spoke
         spoke = repmat(distr, 1, 2) .* ...
             repmat(this.Outline(i, :), cnt, 1);
-        spoke = [spoke, ones(cnt, 1) * z] + ...
+        edgeVals = max(distr - 1 + this.DefaultParams.Outside(2), ...
+            0) / this.DefaultParams.Outside(2);
+        zpos = (1 - edgeVals) * z;
+        spoke = [spoke, zpos] + ...
             (rand([cnt, 3]) - 0.5) * amplitude * 2;
-        body = [body; spoke];
+        if isinside, inside = [inside; spoke]; 
+        else body = [body; spoke]; end
     end % for z
 end % for i
 this.Body = body;
+this.Inside = fs.targets.Mass(inside);
+this.SubTargets{2} = this.Inside;
 
 end
 

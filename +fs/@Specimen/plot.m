@@ -19,8 +19,7 @@ for k = 1 : length(this.Targets)
     for i = 1 : length(targets)
         target = targets{i};
         for channel = channels
-            if size(target.Concentration, 2) < channel || ...
-                    ~target.Concentration(i, channel), continue; end
+            if ~target.checkChannel(channel), continue; end
             points = target.Coordinate;
             plot3(points(:, 1), points(:, 2), points(:, 3), ...
                 target.PlotStyle, 'Color', target.Color, ...
