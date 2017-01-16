@@ -58,7 +58,11 @@ zrad = nuzrad + this.DefaultParams.ZExtend;
 amplitude = 2;
 minthickrad = 0;
 theta0 = cart2pol(nucleus.Outline(1, 2), nucleus.Outline(1, 1));
-slope = this.DefaultParams.SlopeBound / (zrad - minthickrad);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% slope = this.DefaultParams.SlopeBound / (zrad - minthickrad);
+% ====================================================================
+% DELETE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generate spokes for each points on eage
 for i = 1 : size(this.Outline, 1)
     % drop
@@ -76,28 +80,42 @@ for i = 1 : size(this.Outline, 1)
     % for each z position
     for z = -zrad : 1 : zrad
         cnt = basecnt;
-        distr = sqrt(rand(cnt, 1));
+        if abs(z) <= nuzrad, side = 'inside'; 
+        else side = 'outside'; end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%         distr = sqrt(rand(cnt, 1));
+% ====================================================================
+        distr = this.DistrAlongSpoke(cnt, side);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % generate slope
         highslp = high;
-        if abs(z) > minthickrad
-            x = abs(z) - minthickrad;
-            highslp = (1 - x * slope) * (high - low) + low;
-        end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%         if abs(z) > minthickrad && false
+%             x = abs(z) - minthickrad;
+%             highslp = (1 - x * slope) * (high - low) + low;
+%         end
+% ====================================================================
+% DELETE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % keep fluorophore out of nucleus
         if abs(z) <= nuzrad
             distr = distr*(highslp/high-low/high) + low/high;
         end
-        % make nucleus edge bright
-        if rand < this.DefaultParams.NucleusEdgeCoef
-            distr(1) = low/high; end
-        % make cell edge bright
-        if abs(z) <= minthickrad && ...
-                rand < this.DefaultParams.CellEdgeCoef
-            distr(end) = 1; 
-            appcnt = 1;
-            distr = [distr; ones(appcnt, 1)];
-            cnt = cnt + appcnt;
-        end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        
+%         % make nucleus edge bright
+%         if rand < this.DefaultParams.NucleusEdgeCoef
+%             distr(1) = low/high; end
+%         % make cell edge bright
+%         if abs(z) <= minthickrad && ...
+%                 rand < this.DefaultParams.CellEdgeCoef
+%             distr(end) = 1; 
+%             appcnt = 1;
+%             distr = [distr; ones(appcnt, 1)];
+%             cnt = cnt + appcnt;
+%         end
+% ====================================================================
+% DELETE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % generate spoke
         spoke = repmat(distr, 1, 2) .* ...
             repmat(this.Outline(i, :), cnt, 1);
