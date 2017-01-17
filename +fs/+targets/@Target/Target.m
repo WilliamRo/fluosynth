@@ -30,6 +30,7 @@ classdef (Abstract) Target < handle
         ofst = Offset(this)
         coords = Coordinate(this)
         targets = AllMembers(this)
+        count = PointsCount(this)
         name = ClassName(this);
     end
     %% Private Methods
