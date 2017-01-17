@@ -115,6 +115,9 @@ if ~isempty(this.Cilium)
     for i = 1 : len
         [pos, z] = deal(coords(i, 1:2), coords(i, 3));
         if abs(z) > nuzrad, this.OutMask(i) = true; continue; end
+        thetac = cart2pol(pos(2), pos(1));
+        [~, index] = min(abs(thetas - thetac));
+        this.OutMask(i) = norm(pos) > norm(this.Outline(index, :));
     end % for i
 end
 
