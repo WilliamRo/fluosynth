@@ -33,11 +33,6 @@ end
 tic
 image = ones(this.Specimen.Shape(1:2)) * ...
         specimen.Channels(channel).background;
-% use default spread function
-for i = 1 : length(fs.config.SpreadParams.sigma)
-    spread{i} = fs.utils.spread(fs.config.SpreadParams.size, ...
-        fs.config.SpreadParams.sigma(i));
-end 
 sigma = fs.config.FakeDecayParams.distance;
 disdecay = this.distanceDecay(zpos, sigma);
 pct = specimen.Channels(channel).energy .* disdecay;
@@ -50,6 +45,7 @@ for i = 1 : length(specimen.Targets)
         target = targets{k};
         if ~target.checkChannel(channel), continue; end
         coords = round(target.Coordinate);
+        index = this.SpreadIndices.(target.ClassName);
         % for each point in target
         for j = 1 : size(coords, 1)
             coord = coords(j, :);
@@ -59,8 +55,8 @@ for i = 1 : length(specimen.Targets)
             % merge point spread img into image
             if coef > 0
                 cnt = cnt + 1;
-                image = fs.utils.merge(...
-                    image, coef * spread{channel}, coord(1:2));
+                image = fs.utils.merge(image, coef * ...
+                    this.Spreads{index}, coord(1:2));
             end
         end % end for j
     end % end for k

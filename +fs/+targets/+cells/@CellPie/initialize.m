@@ -55,8 +55,8 @@ density = max(deltas) ./ deltas;
 [body, inside] = deal([]);
 nuzrad = nucleus.ZRadius;
 zrad = nuzrad + this.DefaultParams.ZExtend;
-amplitude = 2;
 theta0 = cart2pol(nucleus.Outline(1, 2), nucleus.Outline(1, 1));
+edgePct = this.DefaultParams.Outside(2);
 % generate spokes for each points on eage
 for i = 1 : size(this.Outline, 1)
     % 1st round drop
@@ -84,18 +84,39 @@ for i = 1 : size(this.Outline, 1)
         % generate spoke
         spoke = repmat(distr, 1, 2) .* ...
             repmat(this.Outline(i, :), cnt, 1);
-        edgeVals = max(distr - 1 + this.DefaultParams.Outside(2), ...
-            0) / this.DefaultParams.Outside(2);
-        zpos = (1 - edgeVals) * z;
-        spoke = [spoke, zpos] + ...
-            (rand([cnt, 3]) - 0.5) * amplitude * 2;
+        zpos = (1 - max(distr - 1 + edgePct, 0) / edgePct) * z;
+        spoke = [spoke, zpos] + (rand([cnt, 3]) - 0.5) * ...
+            this.DefaultParams.Amplitude * 2;
         if isinside, inside = [inside; spoke]; 
         else body = [body; spoke]; end
     end % for z
 end % for i
 this.Body = body;
+% set inside
 this.Inside = fs.targets.Mass(inside);
 this.SubTargets{2} = this.Inside;
+
+%% set cilium
+if ~isempty(this.Cilium)
+    % decide position
+    index = randi([1, size(this.Outline, 1)]);
+    outmost = this.Outline(index, :);
+    theta = thetas(index);
+    if theta < 0, theta = theta + 2*pi; end
+    mupos = coord(theta);
+    mu = norm(mupos) / norm(outmost);
+    position = fs.utils.truncated_randn([min(mu, 0.2), 1], ...
+        mu) * outmost;
+    this.Cilium.setPosition([position, 0]);
+    % set out mask
+    len = size(this.Cilium.Body, 1);
+    this.OutMask = true(len, 1);
+    coords = this.Cilium.Coordinate;
+    for i = 1 : len
+        [pos, z] = deal(coords(i, 1:2), coords(i, 3));
+        if abs(z) > nuzrad, this.OutMask(i) = true; continue; end
+    end % for i
+end
 
 end
 

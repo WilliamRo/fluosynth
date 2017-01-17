@@ -13,5 +13,12 @@ setConcentration@fs.targets.Target(this, ...
 setConcentration@fs.targets.Target(this.Inside, ...
     this.ConcentrationRange(2, :), 2);
 
+% set concentration for cilium
+if ~isempty(this.Cilium)
+    setConcentration@fs.targets.Target(this.Cilium, ...
+        [0.95, 1], 1, this.OutMask);
+    setConcentration@fs.targets.Target(this.Cilium, [0.9, 1], 2);
+end
+
 end
 

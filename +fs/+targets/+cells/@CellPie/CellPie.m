@@ -5,7 +5,7 @@ classdef CellPie < fs.targets.Target
     %% Constants
     properties (Constant)
         Interest = true
-        ConcentrationRange = [0.4, 0.9; 0.0, 0.4]
+        ConcentrationRange = [0.2, 0.8; 0.0, 0.8]
         DefaultParams = struct(...
             'VertexRange', [12, 20], ...
             'SpokeRange', [2, 5], ...
@@ -15,9 +15,10 @@ classdef CellPie < fs.targets.Target
             'ZExtend', 2, ...
             'Density', 0.3, ...
             'DistrPointsCount', 1000, ...
-            'Inside', [3, 0.2], ...
-            'Outside', [3, 0.15], ...
-            'InsideDropRate', 0.7) 
+            'Inside', [4, 0.3], ...
+            'Outside', [2.5, 0.1], ...
+            'InsideDropRate', 0.6, ...
+            'Amplitude', 1.5) 
         % [SHOW]
         Color = [0.9, 0.3, 0.3]
         MarkerSize = 0.6
@@ -26,6 +27,8 @@ classdef CellPie < fs.targets.Target
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = protected)
         Nucleus
+        Cilium
+        OutMask
         Inside
         Vertexes
         Pits
@@ -38,12 +41,14 @@ classdef CellPie < fs.targets.Target
     %% Public Methods
     methods (Access = public)
         % Constructor
-        function this = CellPie(nucleus, varargin)
+        function this = CellPie(nucleus, cilium)
             % check input
             assert(isa(nucleus, 'fs.targets.NucleusPie'), ...
                 '!! Input nucleus is illegal.')
             % set parameters
             [this.Nucleus, this.SubTargets{1}] = deal(nucleus);
+            this.Cilium = cilium;
+            if ~isempty(cilium), this.SubTargets{3} = cilium; end
             % initialize
             this.initialize()
         end

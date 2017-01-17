@@ -1,9 +1,19 @@
 classdef Fakescope < fs.microscopes.Microscope
     %FAKESCOPE ...
     %   ...
+    %% Constant
+    properties (Constant, Access = private)
+        SpreadSize = 17                          % size must be ODD!
+        SpreadSigmas = [1.2, 2, 2.2, 2.6]
+        SpreadIndices = struct('Cilium', 1, ...
+                               'NucleusPie', 4, ...
+                               'CellPie', 3, ...
+                               'Mass', 2)
+    end
     %% Readonly Properties
     properties (GetAccess = public, SetAccess = private)
         AxialProfile
+        Spreads
     end
     %% Public Methods
     methods (Access = public)
@@ -17,6 +27,8 @@ classdef Fakescope < fs.microscopes.Microscope
             end
             % set parameters
             this.AxialProfile = axpro;
+            % initialize
+            this.initialize();
         end
         showProfile(this, fid)
         y = distanceDecay(this, zpos, varargin)

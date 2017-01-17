@@ -3,7 +3,8 @@ function cellpie = rand()
 %   ...
 
 nucleus = fs.targets.NucleusPie.rand();
-cellpie = fs.targets.cells.CellPie(nucleus);
+cilium = fs.targets.Cilium.rand();
+cellpie = fs.targets.cells.CellPie(nucleus, cilium);
 
 end
 

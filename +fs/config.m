@@ -8,8 +8,6 @@ classdef (Sealed, Abstract) config
         FakeDecayParams = struct('energy', 10, 'distance', 26)
         FigureIDs = struct('shoot', 800, 'target', 799)
         
-        % SpreadParams.size must be ODD!
-        SpreadParams = struct('size', 17, 'sigma', [2, 1.2, 3])
         SynthFolder = 'sdata/'
         % [SHOW]
         BestView = [90, 35, 40];
