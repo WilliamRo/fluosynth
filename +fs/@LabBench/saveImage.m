@@ -11,6 +11,9 @@ if nargin < 2 || isempty(filename), filename = 'synth'; end
 assert(ischar(filename), '!! Input filename is illegal.')
 assert(ischar(extension), '!! Input extension is illegal.')
 
+% check folder
+if ~exist(fs.config.SynthFolder), mkdir(fs.config.SynthFolder); end
+
 % write image to file
 try
     channelstr = fs.LabBench.ChannelNames{channel};
