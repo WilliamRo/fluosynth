@@ -11,7 +11,7 @@ else sigma = varargin{1}; end
 
 % generate decay profile
 Z = 1 : specimen.Shape(3);
-y = normpdf(Z, zpos, sigma);
+y = fs.utils.normpdf(Z, zpos, sigma);
 y = y' / max(y);
 
 end
