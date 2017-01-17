@@ -5,7 +5,7 @@ classdef LabBench < handle
     properties (Constant, Access = public)
         ChannelNames = {'R', 'G', 'B'};
         %LinearColorMap = {[2, 0.1647], [1, 0.2353], [2, 0.2353]};
-        LinearColorMap = {[2, 0.0647], [1, 0.2353], [2, 0.5353]};
+        LinearColorMap = {[2, 0.0647], [1, 0.2353], [2, 0.2353]};
     end
     %% Public Static Methods
     methods (Access = public, Static)

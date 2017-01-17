@@ -110,7 +110,7 @@ if ~isempty(this.Cilium)
     this.Cilium.setPosition([position, 0]);
     % set out mask
     len = size(this.Cilium.Body, 1);
-    this.OutMask = true(len, 1);
+    this.OutMask = false(len, 1);
     coords = this.Cilium.Coordinate;
     for i = 1 : len
         [pos, z] = deal(coords(i, 1:2), coords(i, 3));

@@ -8,10 +8,10 @@ this.Nucleus.setConcentration(this.Nucleus.ConcentrationRange, 3);
 % set concentration for cellpie
 % outside
 setConcentration@fs.targets.Target(this, ...
-    this.ConcentrationRange(1, :), 1);
+    this.ConcentrationRange.Outside, 1);
 % inside
 setConcentration@fs.targets.Target(this.Inside, ...
-    this.ConcentrationRange(2, :), 2);
+    this.ConcentrationRange.Inside, 2);
 
 % set concentration for cilium
 if ~isempty(this.Cilium)

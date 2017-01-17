@@ -45,7 +45,9 @@ for i = 1 : length(specimen.Targets)
         target = targets{k};
         if ~target.checkChannel(channel), continue; end
         coords = round(target.Coordinate);
-        index = this.SpreadIndices.(target.ClassName);
+        % get spread parameters
+        param = this.SpreadParams.(target.ClassName)(channel, :);
+        [index, multi] = deal(param(1), param(2));
         % for each point in target
         for j = 1 : size(coords, 1)
             coord = coords(j, :);
@@ -53,9 +55,8 @@ for i = 1 : length(specimen.Targets)
             % calculate decay coefficient
             coef = pct(coord(3)) * target.Concentration(j, channel);
             % merge point spread img into image
-            if coef > 0
-                cnt = cnt + 1;
-                image = fs.utils.merge(image, coef * ...
+            if coef > 0, cnt = cnt + 1;
+                image = fs.utils.merge(image, coef * multi * ...
                     this.Spreads{index}, coord(1:2));
             end
         end % end for j
@@ -81,14 +82,17 @@ if verbose
     % show coeficient curve
     subplot(4, 2, 2), hold on
     plot(pct)
-    for i = 1 : length(specimen.Targets)
-        target = specimen.Targets{i};
-        if ~target.checkChannel(channel), continue; end
-        if ~target.Interest, continue; end
-        z = round(target.Position(3));
-        z = max(1, min(specimen.Shape(3), z));
-        illu = pct(z) * mean(target.Concentration(:, channel));
-        plot(z, illu, 's', 'MarkerSize', 4, 'Color', target.Color)
+    for k = 1 : length(specimen.Targets)
+        targets = specimen.Targets{k}.AllMembers;
+        for i = 1 : length(targets) 
+            target = targets{i};
+            if ~target.checkChannel(channel), continue; end
+            if ~target.Interest, continue; end
+            z = round(target.Position(3));
+            z = max(1, min(specimen.Shape(3), z));
+            illu = pct(z) * mean(target.Concentration(:, channel));
+            plot(z, illu, 's', 'MarkerSize', 4, 'Color', target.Color)
+        end
     end
     title('Total Decay')
     % show image
