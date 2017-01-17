@@ -38,6 +38,8 @@ end
 
 % display information
 if isempty(index), objstr = 'Image'; else objstr = 'Image stack'; end
-fprintf('>> %s of channel %s saved.\n', objstr, channelstr);
+if isempty(channelstr), fprintf('>> %s saved.\n', objstr);
+else fprintf('>> %s of channel %s saved.\n', objstr, channelstr); 
+end
 
 end
