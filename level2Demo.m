@@ -1,36 +1,39 @@
-% This script is for level 2 user
+%% This script is for level 2 user
+% All sizes are in pixel. The default length per pixel is 0.163 um 
+% which can be modified by changing fs.config.LengthPerPixel.
 
-% set parameters
-height = 500;
-width = 500;
+%% Set parameters
+height = 500;    % in pixels
+width = 500;     
+thickness = 60;  % 60 pixels is approximately 9.78 um
+channels = 3;    % channel number
+cellNumber = 5;
+stepSize = 3;    % z-stack step size; 3 pixels is around 0.5 um
+addRuler = true;
 
-% initialize specimen
-specimen = fs.Specimen([height, width, 60], 3, [1, 2, 3]);
-% set background to s
-specimen.setBackground(0.05, 1)
-specimen.setBackground(0.06, 2)
-specimen.setBackground(0.02, 3)
-% add some random targets to s
-specimen.addRand(11)
+%% Initialize specimen
+specimen = fs.Specimen([height, width, thickness], channels);
+% set background to specimen
+specimen.setBackground(0.05, 1)     % red channel
+specimen.setBackground(0.06, 2)     % green channel
+specimen.setBackground(0.02, 3)     % blue channel
+% add some random cells to s
+specimen.addRand(cellNumber)
 
-% initialize fakescope
+%% Initialize fakescope
 fakescope = fs.microscopes.Fakescope();
-% set specimen to m
+% set specimen to fakescope
 fakescope.setSpecimen(specimen);
-% add noises to m
-fakescope.setNoise('gaussian', 0.001);
+% add noises to fakescope
+fakescope.setNoise('gaussian', 0.002);
 fakescope.setNoise('poisson');
 
-% get z-stack
-stepsize = 3;
-image = zeros(height, width, 3);
-for channel = channels
-    zstack = fakescope.getZStack(channel, stepsize, varargin{:});
-    subimg = max(zstack, [], 4);
-    image(:, :, channel) = subimg(:, :, channel);
-    % save to file
-    if ~isempty(find(strcmp(varargin, 'save'), 1))
-        fs.LabBench.saveImage(zstack, [], [], true, channel);
-    end
+%% Get Z-Stack
+for channel = 1 : channels
+    % use
+    %    zstack = fakescope.getZStack(channel, stepSize, 'verbose');
+    % if you want to see details
+    zstack = fakescope.getZStack(channel, stepSize);
+    % save z-stack to file
+    fs.LabBench.saveImage(zstack, [], [], addRuler, channel);
 end
-fs.LabBench.saveImage(image, [], [], true);

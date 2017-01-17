@@ -7,7 +7,7 @@ narginchk(1, 5)
 if nargin < 5 || isempty(channel), channel = 0; end
 if nargin < 4 || isempty(ruler), ruler = false; end
 if nargin < 3 || isempty(extension), extension = 'tif'; end
-if nargin < 2 || isempty(filename), filename = 'synth'; end
+if nargin < 2 || isempty(filename), filename = 'FS'; end
 assert(ischar(filename), '!! Input filename is illegal.')
 assert(ischar(extension), '!! Input extension is illegal.')
 
@@ -18,9 +18,9 @@ if ~exist(fs.config.SynthFolder), mkdir(fs.config.SynthFolder); end
 try
     channelstr = fs.LabBench.ChannelNames{channel};
 catch
-    channelstr = '';
+    channelstr = 'A';
 end
-prestr = [fs.config.SynthFolder, channelstr, filename];
+prestr = [fs.config.SynthFolder, channelstr, '_', filename];
 for i = 1 : size(zstack, 4)
     index = '';
     if size(zstack, 4) > 1, index = sprintf('%02d', i); end
@@ -41,8 +41,6 @@ end
 
 % display information
 if isempty(index), objstr = 'Image'; else objstr = 'Image stack'; end
-if isempty(channelstr), fprintf('>> %s saved.\n', objstr);
-else fprintf('>> %s of channel %s saved.\n', objstr, channelstr); 
-end
+fprintf('>> %s of channel %s saved.\n', objstr, channelstr); 
 
 end

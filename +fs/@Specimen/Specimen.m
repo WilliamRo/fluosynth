@@ -26,7 +26,7 @@ classdef Specimen < handle
         % Constructor
         function this = Specimen(shape, channels, rgb_indices)
             % check inputs
-            if nargin < 3, rgb_indices = []; end
+            if nargin < 3, rgb_indices = [1, 2, 3]; end
             if nargin < 2, channels = 1; end
             if nargin < 1, shape = [500, 500, 60]; end
             % initialize
