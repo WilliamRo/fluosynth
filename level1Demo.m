@@ -2,4 +2,5 @@
 % For each channel, a stack of images correponding to different 
 % z positions will be synthesized. All images will be merged to 
 % fully depict the whole specimen.
-clc, fs.LabBench.synthesize([1, 2, 3], 'save')
+batchCount = 1;
+clc, fs.LabBench.synthesizeBatch(batchCount)
