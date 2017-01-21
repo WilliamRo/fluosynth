@@ -51,6 +51,9 @@ for i = 1 : length(specimen.Targets)
         % for each point in target
         for j = 1 : size(coords, 1)
             coord = coords(j, :);
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            coord(3) = min(specimen.Shape(3), max(1, coord(3)));
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             if ~specimen.inbound(coord), continue; end
             % calculate decay coefficient
             coef = pct(coord(3)) * target.Concentration(j, channel);

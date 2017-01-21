@@ -3,7 +3,7 @@ function synthesizeBatch(batches, varargin)
 %   ...
 
 %% Check input, initialize parameter
-narginchk(0, 2)
+narginchk(0, 20)
 if nargin < 1, batches = 1; end
 % set default parameters
 [height, width, depth] = deal(1000, 1000, 60);
@@ -115,6 +115,13 @@ for i = 1 : batches
         % set zmergeds(:, :, :, channel) to final image
         rgbindex = specimen.Channels(channel).rgbindex;
         image(:, :, rgbindex) = zmergeds(:, :, rgbindex, channel);
+        % mark cilia
+        if rgbindex == 2
+            markers = fs.LabBench.markCilia( ...
+                zmergeds(:, :, :, channel), specimen);
+            imwrite(markers, ...
+                [path, sprintf('%s-Cilia.tif', outtername);])
+        end
     end % for channel = channels
     % save final image
     imwrite(image, [path, outtername, 'M.tif']);

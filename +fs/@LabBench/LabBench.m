@@ -14,6 +14,7 @@ classdef LabBench < handle
         images = gray2rgb(images, index)
         image = addRuler(image)
         saveImage(zstack, filename, extension, ruler, channel)
+        image = markCilia(image, specimen, margin, color)
     end % public static methods
     %% Public Methods
     methods (Access = public)
