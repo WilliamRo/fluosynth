@@ -3,7 +3,7 @@ classdef ProgressBar < handle
     %   ...
     %% Constants
     properties (Constant, Access = private)
-        BarLength = 26
+        BarLength = 20
     end
     %% Private Properties
     properties (Access = private, SetObservable)
