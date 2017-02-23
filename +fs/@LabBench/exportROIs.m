@@ -25,9 +25,12 @@ data = load([fs.config.SynthFolder, matFilename]);
 foldername = [fs.config.SynthFolder, 'tmp/'];
 if exist(foldername, 'dir'), rmdir(foldername, 's'); end
 mkdir(foldername)
+labels = 'FT';
 for i = 1 : length(data.labels)
     imwrite(data.rois(:, :, i), ...
-        [foldername, sprintf('%04d_%d.tif', i, data.labels(i))])
+        [foldername, sprintf('%s%05dM%d.tif', ...
+        labels(data.labels(i) + 1), i, ...
+        round(mean(mean(data.rois(:, :, i)))))])
 end % for i
 fprintf('>> %d images been pulled out to %s\n', ...
     length(data.labels), foldername);

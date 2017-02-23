@@ -7,7 +7,8 @@ function extractROIs(varargin)
 ids = [];
 f2tRatio = 1;
 roiSize = 49;
-prefix = 'FSROIS-';
+prefix = 'FS-';
+genTable = false;
 % overwrite default parameters
 index = 1;
 while index <= length(varargin)
@@ -15,13 +16,17 @@ while index <= length(varargin)
     if ischar(name)
         switch lower(name)
             case {'ratio'}
-                f2tRatio = varargin{index+1};
+                index = index + 1;
+                f2tRatio = varargin{index};
             case {'size', 'roisize'}
-                roiSize = varargin{index+1};
+                index = index + 1;
+                roiSize = varargin{index};
             case {'filename', 'prefix', 'pre'}
-                prefix = varargin{index+1};
+                index = index + 1;
+                prefix = varargin{index};
+            case {'table'}
+                genTable = true;
         end
-        index = index + 1;
     else ids = name;
     end % if ischar
     % increate index by 1
@@ -124,10 +129,27 @@ for i = 1 : length(ids)
 end % for i
 
 %% Save data
+roiSize = halfSize * 2 + 1;
 matFilename = [fs.config.SynthFolder, prefix, ...
-    sprintf('S%d-N%d.mat', halfSize*2+1, length(labels))];
+    sprintf('%dx%dx%d.mat', roiSize, roiSize, length(labels))];
 save(matFilename, 'rois', 'labels')
 fprintf('>> rois and labels saved to %s.\n', matFilename)
+% generate table
+if genTable
+    rows = length(labels);
+    cols = roiSize * roiSize + 1;
+    roitable = zeros(rows, cols);
+    for i = 1 : rows
+        roitable(i, 1:end-1) = reshape(rois(:, :, i), 1, cols-1);
+        roitable(i, end) = labels(i);
+    end
+    % convert array to table
+    roitable = array2table(roitable);
+    matFilename = [fs.config.SynthFolder, prefix, ...
+        sprintf('%dx%dx%d.tb.mat', roiSize, roiSize, length(labels))];
+    save(matFilename, 'roitable')
+    fprintf('>> table saved to %s.\n', matFilename)
+end
 
 end
 
