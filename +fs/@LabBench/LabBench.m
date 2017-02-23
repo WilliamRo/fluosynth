@@ -15,6 +15,8 @@ classdef LabBench < handle
         image = addRuler(image)
         saveImage(zstack, filename, extension, ruler, channel)
         image = markCilia(image, specimen, margin, color)
+        extractROIs(varargin)
+        exportROIs(matFilename)
     end % public static methods
     %% Public Methods
     methods (Access = public)

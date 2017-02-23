@@ -89,6 +89,11 @@ for i = 1 : batches
         path = [fs.config.SynthFolder, outtername, '/'];
         if ~exist(path, 'dir'), mkdir(path); break; end
     end % while
+    % create GF(ground truth) folder
+    gtpath = [path, sprintf('GT%06d/', cursor)];
+    mkdir(gtpath)
+    % save specimen to gtpath
+    save([gtpath, sprintf('SP%06d.mat', cursor)], 'specimen')
     % initialize zmerges and final image
     zmergeds = zeros(height, width, 3, length(channels));
     image = zeros(height, width, 3);
@@ -120,13 +125,13 @@ for i = 1 : batches
             markers = fs.LabBench.markCilia( ...
                 zmergeds(:, :, :, channel), specimen);
             imwrite(markers, ...
-                [path, sprintf('%s-Cilia.tif', outtername);])
+                [gtpath, sprintf('%s-Cilia.tif', outtername);])
         end
     end % for channel = channels
     % save final image
     imwrite(image, [path, outtername, 'M.tif']);
     % display
-    fprintf('>> Images saved to ''%s''.\n', path);
+    fprintf('>> Images saved to ''%s''.\n\n', path);
 end % for i = 1 : batches
 
 end
