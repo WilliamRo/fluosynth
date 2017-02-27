@@ -17,6 +17,7 @@ classdef LabBench < handle
         image = markCilia(image, specimen, margin, color)
         extractROIs(varargin)
         exportROIs(matFilename)
+        viewData(stack, labels, type)
     end % public static methods
     %% Public Methods
     methods (Access = public)
