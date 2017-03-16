@@ -45,6 +45,35 @@ while true
 end % while true
 
 %% Put cilia
+% - Set Parameters
+% cilia will be appear in a bottom-right (pct*S)x(pct*S) area
+pct = 0.5;
+% range is (H-sH+1:end, W-sW+1:end)
+[sH, sW] = deal(round(pct * S));  
+% specimen thickness
+thickness = 50;
+% cilia number
+cN = 10;
+% - Initialize specimen and put cN random cilia into it
+[channelNum, rgbIndex] = deal(1, 2);
+specimen = fs.Specimen([sH, sW, thickness], channelNum, rgbIndex);
+for i = 1 : cN
+    % rand a cilium
+    cilium = fs.targets.Cilium.rand;
+    % set concentration for cilium
+    cilium.setConcentration();
+    % add cilium to a random position in the specimen
+    specimen.addTarget(cilium);
+end
+% - Initialize fakescope and set specimen to it
+fakescope = fs.microscopes.Fakescope();
+fakescope.setSpecimen(specimen);
+% - Illuminate specimen and shoot
+fakescope.illuminate(thickness / 2, 1)
+ciliapiece = fakescope.shoot(thickness / 2, 1, 'gray');
+% - Merge this piece into image
+img(S-sH+1:end, S-sW+1:end) = ...
+    img(S-sH+1:end, S-sW+1:end) + ciliapiece;
 
 %% Output or show image
 if nargout == 0
